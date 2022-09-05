@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # === Ctrl + C === #
-function ctrl_c() {
+function ctrl_c {
   echo "\n\n[!] Exiting...\n"
   tput cnorm; exit 1
 }
@@ -32,3 +32,38 @@ GREEN_UNDER='\033[4;32m'   # Green
 YELLOW_UNDER='\033[4;33m'  # Yellow
 BLUE_UNDER='\033[4;34m'    # Blue
 
+
+# === Logging function === #
+function log {
+  echo "$1"; sleep 2
+}
+
+
+# === Banner === #
+bash ./assets/banner.sh
+
+
+# === ZSH === #
+sleep 1
+
+
+# === Powerlevel10k === #
+sleep 1
+
+
+# === Neovim - NvChad === #
+log "[?] Checking if Neovim is installed..."
+if [ command -v nvim &>/dev/null ]; then
+  log "[+] Neovim detected! ($(which nvim))\n"
+else
+  log "[-] Neovim not installed, installing now...\n"
+  pacman -S nvim --noconfirm &>/dev/null
+  log "[+] Neovim installed! ($(which nvim))\n"
+fi
+
+log "[*] Configuring NvChad for Neovim...\n"
+git clone https://github.com/NvChad/NvChad /home/$(logname)/.config/nvim --depth 1 &>/dev/null && nvim
+log "[+] NvChad Configured!"
+
+
+# === (...) === #
