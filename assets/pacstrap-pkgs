@@ -1,0 +1,16 @@
+base
+base-devel
+linux
+linux-firmware
+grub
+efibootmgr
+dosfstools
+mtools
+amd-ucode
+btrfs-progs
+networkmanager
+sudo
+zsh
+git
+nano
+python
