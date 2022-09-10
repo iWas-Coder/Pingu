@@ -46,7 +46,7 @@ log "[+] GRUB Theme Configured!"
 
 # === Package installation === #
 log "[*] Installing Packages..."
-sudo pacman -S nvidia xclip zsh
+sudo pacman -S xorg nvidia xclip zsh qtile
 yay -S nerd-fonts-jetbrains-mono
 log "[+] Packages Installed!"
 
@@ -67,8 +67,14 @@ log "[+] ZSH Shell Configured!"
 sleep 1
 
 
-# === Qtile === #
+# === Picom === #
 sleep 1
+
+
+# === Qtile === #
+log "[*] Configuring Qtile (WM)..."
+cp -r /usr/share/Pingu/config/qtile /home/$USER/.config/qtile
+log "[+] Qtile Configured!"
 
 
 # === Neovim - NvChad === #
@@ -82,5 +88,5 @@ else
 fi
 
 log "[*] Configuring NvChad for Neovim..."
-git clone https://github.com/NvChad/NvChad /home/$USER/.config/nvim --depth 1 &>/dev/null && nvim
-log "[+] NvChad Configured!"
+git clone https://github.com/NvChad/NvChad /home/$USER/.config/nvim --depth 1 &>/dev/null
+log "[+] NvChad Configured (during first launch it will install all add-ons; next time it will be ready)!"
