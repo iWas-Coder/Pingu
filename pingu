@@ -46,9 +46,12 @@ log "[+] GRUB Theme Configured!"
 
 # === Package installation === #
 log "[*] Installing Packages..."
-sudo pacman -S xorg nvidia xclip zsh qtile
+sudo pacman -S xorg nvidia xclip qtile neofetch
 yay -S nerd-fonts-jetbrains-mono
-log "[+] Packages Installed!"
+log "[+] Packages Installed
+
+
+# === Blackarch === #
 
 
 # === ZSH === #
