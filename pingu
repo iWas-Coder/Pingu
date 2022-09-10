@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # === Ctrl + C === #
-function ctrl_c {
+ctrl_c () {
   echo "\n\n[!] Exiting...\n"
   tput cnorm; exit 1
 }
@@ -12,9 +12,26 @@ tput civis
 
 
 # === Logging function === #
-function log {
+log () {
   echo "$1\n"; sleep 2
 }
+
+
+# === Arguments check === #
+if [ $# -ne 1 ]; then
+  echo "usage: ./pingu <USER> (Execute script as ROOT)"
+  exit 1
+fi
+if [ -z "$1" ]; then
+  echo "usage: ./pingu <USER> (Execute script as ROOT)"
+  exit 1
+fi
+if id "$1" &>/dev/null; then
+  USER=$1
+else
+  log "User provided does not exist :("
+  exit 1
+fi
 
 
 # === Banner === #
@@ -28,10 +45,22 @@ log "[+] GRUB Theme Configured!"
 
 
 # === Package installation === #
+log "[*] Installing Packages..."
+sudo pacman -S nvidia xclip zsh
+yay -S nerd-fonts-jetbrains-mono
+log "[+] Packages Installed!"
 
 
 # === ZSH === #
-sleep 1
+log "[*] Configuring ZSH Shell..."
+mkdir -p /usr/share/custom-zsh/zsh-sudo
+chown $USER:$USER /usr/share/custom-zsh/zsh-sudo
+git clone "https://github.com/zsh-users/zsh-syntax-highlighting" /usr/share/custom-zsh/zsh-syntax-highlighting
+git clone "https://github.com/zsh-users/zsh-autosuggestions" /usr/share/custom-zsh/zsh-autosuggestions
+cd /usr/share/custom-zsh/zsh-sudo && wget "https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/plugins/sudo/sudo.plugin.zsh"
+usermod --shell /usr/bin/zsh $USER
+usermod --shell /usr/bin/zsh root
+log "[+] ZSH Shell Configured!"
 
 
 # === Powerlevel10k === #
@@ -39,6 +68,7 @@ sleep 1
 
 
 # === Qtile === #
+sleep 1
 
 
 # === Neovim - NvChad === #
@@ -52,5 +82,5 @@ else
 fi
 
 log "[*] Configuring NvChad for Neovim..."
-git clone https://github.com/NvChad/NvChad /home/$(logname)/.config/nvim --depth 1 &>/dev/null && nvim
+git clone https://github.com/NvChad/NvChad /home/$USER/.config/nvim --depth 1 &>/dev/null && nvim
 log "[+] NvChad Configured!"
