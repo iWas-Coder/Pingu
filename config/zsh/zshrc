@@ -20,6 +20,13 @@ setopt histignorealldups sharehistory
 # === Emacs Keybindings === #
 bindkey -e
 
+# === Extra Keybindings === #
+bindkey "^[[H" beggining-of-line
+bindkey "^[[F" end-of-line
+bindkey "^[[3~" delete-char
+bindkey "^[[1;3C" forward-word
+bindkey "^[[1;3D" backward-word
+
 # === ZSH History === #
 HISTSIZE=1000
 SAVEHIST=1000
