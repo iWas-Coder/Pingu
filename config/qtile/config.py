@@ -20,12 +20,13 @@ def autostart():
 
 
 # === Configuration variables === #
-main = None
+wmname = "Pingu"
 auto_fullscreen = True
+auto_minimize = False
+reconfigure_screens = True
 bring_front_click = False
 cursor_warp = False
+follow_mouse_focus = False
+focus_on_window_activation = "smart"
 dgroups_key_binder = None
 dgroups_app_rules = []
-focus_on_window_activation = "smart"
-follow_mouse_focus = True
-wmname = "Pingu"
