@@ -7,6 +7,7 @@ from libqtile.command import lazy
 from .keys import mod
 
 
+# === Mouse Configuration === #
 mouse = [
     Drag(
         [mod],
