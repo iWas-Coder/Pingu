@@ -7,7 +7,7 @@ from os import path
 from libqtile import hook
 from settings.keys import mod, keys
 from settings.groups import groups
-from settings.layouts import layouts, floating_layout
+from settings.layouts import layout_conf, layouts
 from settings.widgets import widget_defaults, extension_defaults
 from settings.screens import screens
 from settings.mouse import mouse
