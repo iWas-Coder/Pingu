@@ -2,9 +2,9 @@
 # (c) iWas. All rights reserved.
 # https://github.com/iWas-Coder/Pingu
 
+from os import path
 from libqtile import widget
 from libqtile import bar
-from os import path
 from .path import qtile_path
 
 
