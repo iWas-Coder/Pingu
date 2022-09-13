@@ -73,6 +73,7 @@ alias l='lsd -lh --group-dirs=first'
 alias ll='lsd -lha --group-dirs=first'
 alias cat='bat'
 alias icat='kitty +kitten icat'
+alias gdb='LC_ALL=en.US.UTF-8 gdb'
 
 # === Functions === #
 # Improved man command.
