@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # === Wallpaper === #
-feh --bg-center ~/.wallpaper/wallpaper_1.jpg --bg-center ~/.wallpaper/wallpaper_2.jpg &
+feh --bg-center /usr/share/wallpaper/wallpaper_1.jpg --bg-center /usr/share/wallpaper/wallpaper_2.jpg &
 
 # === Volumeicon System Tray Icon === #
 volumeicon &
