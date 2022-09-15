@@ -594,7 +594,7 @@
   # Default context color (no privileges, no SSH).
   typeset -g POWERLEVEL9K_CONTEXT_FOREGROUND=180
   # Context format when running with privileges: bold user@hostname.
-  typeset -g POWERLEVEL9K_CONTEXT_ROOT_TEMPLATE='%B%n@%m'
+  typeset -g POWERLEVEL9K_CONTEXT_ROOT_TEMPLATE=''
   # Context format when in SSH without privileges: user@hostname.
   typeset -g POWERLEVEL9K_CONTEXT_{REMOTE,REMOTE_SUDO}_TEMPLATE='%n@%m'
   # Default context format (no privileges, no SSH): user@hostname.
@@ -604,7 +604,7 @@
   # Custom icon.
   # typeset -g POWERLEVEL9K_CONTEXT_VISUAL_IDENTIFIER_EXPANSION='⭐'
   # Custom prefix.
-  typeset -g POWERLEVEL9K_CONTEXT_PREFIX='%246Fwith '
+  # typeset -g POWERLEVEL9K_CONTEXT_PREFIX='%246Fwith '
 
   ######### === virtualenv (Python virtual environment) === #########
   # Python virtual environment color.
@@ -655,7 +655,7 @@
   # Custom icon.
   # typeset -g POWERLEVEL9K_GOENV_VISUAL_IDENTIFIER_EXPANSION='⭐'
 
-  ##########[ nodenv: node.js version from nodenv (https://github.com/nodenv/nodenv) ]##########
+  ######### === nodenv (Node.js version from nodenv) === #########
   # Nodenv color.
   typeset -g POWERLEVEL9K_NODENV_FOREGROUND=70
   # Hide node version if it doesn't come from one of these sources.
@@ -668,13 +668,13 @@
   # Custom icon.
   # typeset -g POWERLEVEL9K_NODENV_VISUAL_IDENTIFIER_EXPANSION='⭐'
 
-  ##############[ nvm: node.js version from nvm (https://github.com/nvm-sh/nvm) ]###############
+  ######### === nvm (Node.js version from nvm) === #########
   # Nvm color.
   typeset -g POWERLEVEL9K_NVM_FOREGROUND=70
   # Custom icon.
   # typeset -g POWERLEVEL9K_NVM_VISUAL_IDENTIFIER_EXPANSION='⭐'
 
-  ############[ nodeenv: node.js environment (https://github.com/ekalinin/nodeenv) ]############
+  ######### === nodeenv (Node.js environment) === #########
   # Nodeenv color.
   typeset -g POWERLEVEL9K_NODEENV_FOREGROUND=70
   # Don't show Node version next to the environment name.
@@ -684,7 +684,7 @@
   # Custom icon.
   # typeset -g POWERLEVEL9K_NODEENV_VISUAL_IDENTIFIER_EXPANSION='⭐'
 
-  ##############################[ node_version: node.js version ]###############################
+  ######### === node_version (Node.js version) === #########
   # Node version color.
   typeset -g POWERLEVEL9K_NODE_VERSION_FOREGROUND=70
   # Show node version only when in a directory tree containing package.json.
@@ -692,7 +692,7 @@
   # Custom icon.
   # typeset -g POWERLEVEL9K_NODE_VERSION_VISUAL_IDENTIFIER_EXPANSION='⭐'
 
-  #######################[ go_version: go version (https://golang.org) ]########################
+  ######### === go_version (Go version) === #########
   # Go version color.
   typeset -g POWERLEVEL9K_GO_VERSION_FOREGROUND=37
   # Show go version only when in a go project subdirectory.
@@ -700,7 +700,7 @@
   # Custom icon.
   # typeset -g POWERLEVEL9K_GO_VERSION_VISUAL_IDENTIFIER_EXPANSION='⭐'
 
-  #################[ rust_version: rustc version (https://www.rust-lang.org) ]##################
+  ######### === rust_version (Rustc version) === #########
   # Rust version color.
   typeset -g POWERLEVEL9K_RUST_VERSION_FOREGROUND=37
   # Show rust version only when in a rust project subdirectory.
@@ -708,7 +708,7 @@
   # Custom icon.
   # typeset -g POWERLEVEL9K_RUST_VERSION_VISUAL_IDENTIFIER_EXPANSION='⭐'
 
-  ###############[ dotnet_version: .NET version (https://dotnet.microsoft.com) ]################
+  ######### === dotnet_version (.NET version) === #########
   # .NET version color.
   typeset -g POWERLEVEL9K_DOTNET_VERSION_FOREGROUND=134
   # Show .NET version only when in a .NET project subdirectory.
@@ -716,7 +716,7 @@
   # Custom icon.
   # typeset -g POWERLEVEL9K_DOTNET_VERSION_VISUAL_IDENTIFIER_EXPANSION='⭐'
 
-  #####################[ php_version: php version (https://www.php.net/) ]######################
+  ######### === php_version (PHP version) === #########
   # PHP version color.
   typeset -g POWERLEVEL9K_PHP_VERSION_FOREGROUND=99
   # Show PHP version only when in a PHP project subdirectory.
@@ -724,13 +724,13 @@
   # Custom icon.
   # typeset -g POWERLEVEL9K_PHP_VERSION_VISUAL_IDENTIFIER_EXPANSION='⭐'
 
-  ##########[ laravel_version: laravel php framework version (https://laravel.com/) ]###########
+  ######### === laravel_version (Laravel PHP framework version) === #########
   # Laravel version color.
   typeset -g POWERLEVEL9K_LARAVEL_VERSION_FOREGROUND=161
   # Custom icon.
   # typeset -g POWERLEVEL9K_LARAVEL_VERSION_VISUAL_IDENTIFIER_EXPANSION='⭐'
 
-  ####################[ java_version: java version (https://www.java.com/) ]####################
+  ######### === java_version (Java version) === #########
   # Java version color.
   typeset -g POWERLEVEL9K_JAVA_VERSION_FOREGROUND=32
   # Show java version only when in a java project subdirectory.
@@ -740,19 +740,15 @@
   # Custom icon.
   # typeset -g POWERLEVEL9K_JAVA_VERSION_VISUAL_IDENTIFIER_EXPANSION='⭐'
 
-  ###[ package: name@version from package.json (https://docs.npmjs.com/files/package.json) ]####
+  ######### === package (name@version from package.json) === #########
   # Package color.
   typeset -g POWERLEVEL9K_PACKAGE_FOREGROUND=117
-  # Package format. The following parameters are available within the expansion.
-  #
-  # - P9K_PACKAGE_NAME     The value of `name` field in package.json.
-  # - P9K_PACKAGE_VERSION  The value of `version` field in package.json.
-  #
+  # Package format.
   # typeset -g POWERLEVEL9K_PACKAGE_CONTENT_EXPANSION='${P9K_PACKAGE_NAME//\%/%%}@${P9K_PACKAGE_VERSION//\%/%%}'
   # Custom icon.
   # typeset -g POWERLEVEL9K_PACKAGE_VISUAL_IDENTIFIER_EXPANSION='⭐'
 
-  #############[ rbenv: ruby version from rbenv (https://github.com/rbenv/rbenv) ]##############
+  ######### === rbenv (Ruby version from rbenv) === #########
   # Rbenv color.
   typeset -g POWERLEVEL9K_RBENV_FOREGROUND=168
   # Hide ruby version if it doesn't come from one of these sources.
@@ -765,7 +761,7 @@
   # Custom icon.
   # typeset -g POWERLEVEL9K_RBENV_VISUAL_IDENTIFIER_EXPANSION='⭐'
 
-  #######################[ rvm: ruby version from rvm (https://rvm.io) ]########################
+  ######### === rvm (Ruby version from rvm) === #########
   # Rvm color.
   typeset -g POWERLEVEL9K_RVM_FOREGROUND=168
   # Don't show @gemset at the end.
@@ -775,13 +771,13 @@
   # Custom icon.
   # typeset -g POWERLEVEL9K_RVM_VISUAL_IDENTIFIER_EXPANSION='⭐'
 
-  ###########[ fvm: flutter version management (https://github.com/leoafarias/fvm) ]############
+  ######### === fvm (Flutter version management) === #########
   # Fvm color.
   typeset -g POWERLEVEL9K_FVM_FOREGROUND=38
   # Custom icon.
   # typeset -g POWERLEVEL9K_FVM_VISUAL_IDENTIFIER_EXPANSION='⭐'
 
-  ##########[ luaenv: lua version from luaenv (https://github.com/cehoffman/luaenv) ]###########
+  ######### === luaenv (Lua version from luaenv) === #########
   # Lua color.
   typeset -g POWERLEVEL9K_LUAENV_FOREGROUND=32
   # Hide lua version if it doesn't come from one of these sources.
@@ -794,7 +790,7 @@
   # Custom icon.
   # typeset -g POWERLEVEL9K_LUAENV_VISUAL_IDENTIFIER_EXPANSION='⭐'
 
-  ###############[ jenv: java version from jenv (https://github.com/jenv/jenv) ]################
+  ######### === jenv (Java version from jenv) === #########
   # Java color.
   typeset -g POWERLEVEL9K_JENV_FOREGROUND=32
   # Hide java version if it doesn't come from one of these sources.
@@ -807,7 +803,7 @@
   # Custom icon.
   # typeset -g POWERLEVEL9K_JENV_VISUAL_IDENTIFIER_EXPANSION='⭐'
 
-  ###########[ plenv: perl version from plenv (https://github.com/tokuhirom/plenv) ]############
+  ######### === plenv (Perl version from plenv) === #########
   # Perl color.
   typeset -g POWERLEVEL9K_PLENV_FOREGROUND=67
   # Hide perl version if it doesn't come from one of these sources.
@@ -820,7 +816,7 @@
   # Custom icon.
   # typeset -g POWERLEVEL9K_PLENV_VISUAL_IDENTIFIER_EXPANSION='⭐'
 
-  ###########[ perlbrew: perl version from perlbrew (https://github.com/gugod/App-perlbrew) ]############
+  ######### === perlbrew (Perl version from perlbrew) === #########
   # Perlbrew color.
   typeset -g POWERLEVEL9K_PERLBREW_FOREGROUND=67
   # Show perlbrew version only when in a perl project subdirectory.
@@ -830,7 +826,7 @@
   # Custom icon.
   # typeset -g POWERLEVEL9K_PERLBREW_VISUAL_IDENTIFIER_EXPANSION='⭐'
 
-  ############[ phpenv: php version from phpenv (https://github.com/phpenv/phpenv) ]############
+  ######### === phpenv (PHP version from phpenv) === #########
   # PHP color.
   typeset -g POWERLEVEL9K_PHPENV_FOREGROUND=99
   # Hide php version if it doesn't come from one of these sources.
@@ -843,7 +839,7 @@
   # Custom icon.
   # typeset -g POWERLEVEL9K_PHPENV_VISUAL_IDENTIFIER_EXPANSION='⭐'
 
-  #######[ scalaenv: scala version from scalaenv (https://github.com/scalaenv/scalaenv) ]#######
+  ######### === scalaenv (Scala version from scalaenv) === #########
   # Scala color.
   typeset -g POWERLEVEL9K_SCALAENV_FOREGROUND=160
   # Hide scala version if it doesn't come from one of these sources.
@@ -856,46 +852,20 @@
   # Custom icon.
   # typeset -g POWERLEVEL9K_SCALAENV_VISUAL_IDENTIFIER_EXPANSION='⭐'
 
-  ##########[ haskell_stack: haskell version from stack (https://haskellstack.org/) ]###########
+  ######### === haskell_stack (Haskell version from stack) === #########
   # Haskell color.
   typeset -g POWERLEVEL9K_HASKELL_STACK_FOREGROUND=172
   # Hide haskell version if it doesn't come from one of these sources.
-  #
-  #   shell:  version is set by STACK_YAML
-  #   local:  version is set by stack.yaml up the directory tree
-  #   global: version is set by the implicit global project (~/.stack/global-project/stack.yaml)
   typeset -g POWERLEVEL9K_HASKELL_STACK_SOURCES=(shell local)
   # If set to false, hide haskell version if it's the same as in the implicit global project.
   typeset -g POWERLEVEL9K_HASKELL_STACK_ALWAYS_SHOW=true
   # Custom icon.
   # typeset -g POWERLEVEL9K_HASKELL_STACK_VISUAL_IDENTIFIER_EXPANSION='⭐'
 
-  ################[ terraform: terraform workspace (https://www.terraform.io) ]#################
+  ######### === terraform (Terraform workspace) === #########
   # Don't show terraform workspace if it's literally "default".
   typeset -g POWERLEVEL9K_TERRAFORM_SHOW_DEFAULT=false
-  # POWERLEVEL9K_TERRAFORM_CLASSES is an array with even number of elements. The first element
-  # in each pair defines a pattern against which the current terraform workspace gets matched.
-  # More specifically, it's P9K_CONTENT prior to the application of context expansion (see below)
-  # that gets matched. If you unset all POWERLEVEL9K_TERRAFORM_*CONTENT_EXPANSION parameters,
-  # you'll see this value in your prompt. The second element of each pair in
-  # POWERLEVEL9K_TERRAFORM_CLASSES defines the workspace class. Patterns are tried in order. The
-  # first match wins.
-  #
-  # For example, given these settings:
-  #
-  #   typeset -g POWERLEVEL9K_TERRAFORM_CLASSES=(
-  #     '*prod*'  PROD
-  #     '*test*'  TEST
-  #     '*'       OTHER)
-  #
-  # If your current terraform workspace is "project_test", its class is TEST because "project_test"
-  # doesn't match the pattern '*prod*' but does match '*test*'.
-  #
-  # You can define different colors, icons and content expansions for different classes:
-  #
-  #   typeset -g POWERLEVEL9K_TERRAFORM_TEST_FOREGROUND=28
-  #   typeset -g POWERLEVEL9K_TERRAFORM_TEST_VISUAL_IDENTIFIER_EXPANSION='⭐'
-  #   typeset -g POWERLEVEL9K_TERRAFORM_TEST_CONTENT_EXPANSION='> ${P9K_CONTENT} <'
+  # POWERLEVEL9K_TERRAFORM_CLASSES is an array with even number of elements.
   typeset -g POWERLEVEL9K_TERRAFORM_CLASSES=(
       # '*prod*'  PROD    # These values are examples that are unlikely
       # '*test*'  TEST    # to match your needs. Customize them as needed.
@@ -903,43 +873,19 @@
   typeset -g POWERLEVEL9K_TERRAFORM_OTHER_FOREGROUND=38
   # typeset -g POWERLEVEL9K_TERRAFORM_OTHER_VISUAL_IDENTIFIER_EXPANSION='⭐'
 
-  #############[ terraform_version: terraform version (https://www.terraform.io) ]##############
+  ######### === terraform_version (Terraform version) === #########
   # Terraform version color.
   typeset -g POWERLEVEL9K_TERRAFORM_VERSION_FOREGROUND=38
   # Custom icon.
   # typeset -g POWERLEVEL9K_TERRAFORM_VERSION_VISUAL_IDENTIFIER_EXPANSION='⭐'
 
-  #############[ kubecontext: current kubernetes context (https://kubernetes.io/) ]#############
+  ######### === kubecontext (Current kubernetes context) === #########
   # Show kubecontext only when the command you are typing invokes one of these tools.
   # Tip: Remove the next line to always show kubecontext.
   typeset -g POWERLEVEL9K_KUBECONTEXT_SHOW_ON_COMMAND='kubectl|helm|kubens|kubectx|oc|istioctl|kogito|k9s|helmfile|flux|fluxctl|stern|kubeseal|skaffold'
 
   # Kubernetes context classes for the purpose of using different colors, icons and expansions with
   # different contexts.
-  #
-  # POWERLEVEL9K_KUBECONTEXT_CLASSES is an array with even number of elements. The first element
-  # in each pair defines a pattern against which the current kubernetes context gets matched.
-  # More specifically, it's P9K_CONTENT prior to the application of context expansion (see below)
-  # that gets matched. If you unset all POWERLEVEL9K_KUBECONTEXT_*CONTENT_EXPANSION parameters,
-  # you'll see this value in your prompt. The second element of each pair in
-  # POWERLEVEL9K_KUBECONTEXT_CLASSES defines the context class. Patterns are tried in order. The
-  # first match wins.
-  #
-  # For example, given these settings:
-  #
-  #   typeset -g POWERLEVEL9K_KUBECONTEXT_CLASSES=(
-  #     '*prod*'  PROD
-  #     '*test*'  TEST
-  #     '*'       DEFAULT)
-  #
-  # If your current kubernetes context is "deathray-testing/default", its class is TEST
-  # because "deathray-testing/default" doesn't match the pattern '*prod*' but does match '*test*'.
-  #
-  # You can define different colors, icons and content expansions for different classes:
-  #
-  #   typeset -g POWERLEVEL9K_KUBECONTEXT_TEST_FOREGROUND=28
-  #   typeset -g POWERLEVEL9K_KUBECONTEXT_TEST_VISUAL_IDENTIFIER_EXPANSION='⭐'
-  #   typeset -g POWERLEVEL9K_KUBECONTEXT_TEST_CONTENT_EXPANSION='> ${P9K_CONTENT} <'
   typeset -g POWERLEVEL9K_KUBECONTEXT_CLASSES=(
       # '*prod*'  PROD    # These values are examples that are unlikely
       # '*test*'  TEST    # to match your needs. Customize them as needed.
@@ -948,45 +894,7 @@
   # typeset -g POWERLEVEL9K_KUBECONTEXT_DEFAULT_VISUAL_IDENTIFIER_EXPANSION='⭐'
 
   # Use POWERLEVEL9K_KUBECONTEXT_CONTENT_EXPANSION to specify the content displayed by kubecontext
-  # segment. Parameter expansions are very flexible and fast, too. See reference:
-  # http://zsh.sourceforge.net/Doc/Release/Expansion.html#Parameter-Expansion.
-  #
-  # Within the expansion the following parameters are always available:
-  #
-  # - P9K_CONTENT                The content that would've been displayed if there was no content
-  #                              expansion defined.
-  # - P9K_KUBECONTEXT_NAME       The current context's name. Corresponds to column NAME in the
-  #                              output of `kubectl config get-contexts`.
-  # - P9K_KUBECONTEXT_CLUSTER    The current context's cluster. Corresponds to column CLUSTER in the
-  #                              output of `kubectl config get-contexts`.
-  # - P9K_KUBECONTEXT_NAMESPACE  The current context's namespace. Corresponds to column NAMESPACE
-  #                              in the output of `kubectl config get-contexts`. If there is no
-  #                              namespace, the parameter is set to "default".
-  # - P9K_KUBECONTEXT_USER       The current context's user. Corresponds to column AUTHINFO in the
-  #                              output of `kubectl config get-contexts`.
-  #
-  # If the context points to Google Kubernetes Engine (GKE) or Elastic Kubernetes Service (EKS),
-  # the following extra parameters are available:
-  #
-  # - P9K_KUBECONTEXT_CLOUD_NAME     Either "gke" or "eks".
-  # - P9K_KUBECONTEXT_CLOUD_ACCOUNT  Account/project ID.
-  # - P9K_KUBECONTEXT_CLOUD_ZONE     Availability zone.
-  # - P9K_KUBECONTEXT_CLOUD_CLUSTER  Cluster.
-  #
-  # P9K_KUBECONTEXT_CLOUD_* parameters are derived from P9K_KUBECONTEXT_CLUSTER. For example,
-  # if P9K_KUBECONTEXT_CLUSTER is "gke_my-account_us-east1-a_my-cluster-01":
-  #
-  #   - P9K_KUBECONTEXT_CLOUD_NAME=gke
-  #   - P9K_KUBECONTEXT_CLOUD_ACCOUNT=my-account
-  #   - P9K_KUBECONTEXT_CLOUD_ZONE=us-east1-a
-  #   - P9K_KUBECONTEXT_CLOUD_CLUSTER=my-cluster-01
-  #
-  # If P9K_KUBECONTEXT_CLUSTER is "arn:aws:eks:us-east-1:123456789012:cluster/my-cluster-01":
-  #
-  #   - P9K_KUBECONTEXT_CLOUD_NAME=eks
-  #   - P9K_KUBECONTEXT_CLOUD_ACCOUNT=123456789012
-  #   - P9K_KUBECONTEXT_CLOUD_ZONE=us-east-1
-  #   - P9K_KUBECONTEXT_CLOUD_CLUSTER=my-cluster-01
+  # segment.
   typeset -g POWERLEVEL9K_KUBECONTEXT_DEFAULT_CONTENT_EXPANSION=
   # Show P9K_KUBECONTEXT_CLOUD_CLUSTER if it's not empty and fall back to P9K_KUBECONTEXT_NAME.
   POWERLEVEL9K_KUBECONTEXT_DEFAULT_CONTENT_EXPANSION+='${P9K_KUBECONTEXT_CLOUD_CLUSTER:-${P9K_KUBECONTEXT_NAME}}'
@@ -996,34 +904,12 @@
   # Custom prefix.
   typeset -g POWERLEVEL9K_KUBECONTEXT_PREFIX='%246Fat '
 
-  #[ aws: aws profile (https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html) ]#
+  ######### === aws (AWS profile) === #########
   # Show aws only when the command you are typing invokes one of these tools.
   # Tip: Remove the next line to always show aws.
   typeset -g POWERLEVEL9K_AWS_SHOW_ON_COMMAND='aws|awless|terraform|pulumi|terragrunt'
 
-  # POWERLEVEL9K_AWS_CLASSES is an array with even number of elements. The first element
-  # in each pair defines a pattern against which the current AWS profile gets matched.
-  # More specifically, it's P9K_CONTENT prior to the application of context expansion (see below)
-  # that gets matched. If you unset all POWERLEVEL9K_AWS_*CONTENT_EXPANSION parameters,
-  # you'll see this value in your prompt. The second element of each pair in
-  # POWERLEVEL9K_AWS_CLASSES defines the profile class. Patterns are tried in order. The
-  # first match wins.
-  #
-  # For example, given these settings:
-  #
-  #   typeset -g POWERLEVEL9K_AWS_CLASSES=(
-  #     '*prod*'  PROD
-  #     '*test*'  TEST
-  #     '*'       DEFAULT)
-  #
-  # If your current AWS profile is "company_test", its class is TEST
-  # because "company_test" doesn't match the pattern '*prod*' but does match '*test*'.
-  #
-  # You can define different colors, icons and content expansions for different classes:
-  #
-  #   typeset -g POWERLEVEL9K_AWS_TEST_FOREGROUND=28
-  #   typeset -g POWERLEVEL9K_AWS_TEST_VISUAL_IDENTIFIER_EXPANSION='⭐'
-  #   typeset -g POWERLEVEL9K_AWS_TEST_CONTENT_EXPANSION='> ${P9K_CONTENT} <'
+  # POWERLEVEL9K_AWS_CLASSES is an array with even number of elements.
   typeset -g POWERLEVEL9K_AWS_CLASSES=(
       # '*prod*'  PROD    # These values are examples that are unlikely
       # '*test*'  TEST    # to match your needs. Customize them as needed.
@@ -1031,57 +917,31 @@
   typeset -g POWERLEVEL9K_AWS_DEFAULT_FOREGROUND=208
   # typeset -g POWERLEVEL9K_AWS_DEFAULT_VISUAL_IDENTIFIER_EXPANSION='⭐'
 
-  # AWS segment format. The following parameters are available within the expansion.
-  #
-  # - P9K_AWS_PROFILE  The name of the current AWS profile.
-  # - P9K_AWS_REGION   The region associated with the current AWS profile.
+  # AWS segment format.
   typeset -g POWERLEVEL9K_AWS_CONTENT_EXPANSION='${P9K_AWS_PROFILE//\%/%%}${P9K_AWS_REGION:+ ${P9K_AWS_REGION//\%/%%}}'
 
-  #[ aws_eb_env: aws elastic beanstalk environment (https://aws.amazon.com/elasticbeanstalk/) ]#
+  ######### === aws_eb_env (AWS elastic beanstalk environment) === #########
   # AWS Elastic Beanstalk environment color.
   typeset -g POWERLEVEL9K_AWS_EB_ENV_FOREGROUND=70
   # Custom icon.
   # typeset -g POWERLEVEL9K_AWS_EB_ENV_VISUAL_IDENTIFIER_EXPANSION='⭐'
 
-  ##########[ azure: azure account name (https://docs.microsoft.com/en-us/cli/azure) ]##########
+  ######### === azure (Azure account name) === #########
   # Show azure only when the command you are typing invokes one of these tools.
-  # Tip: Remove the next line to always show azure.
   typeset -g POWERLEVEL9K_AZURE_SHOW_ON_COMMAND='az|terraform|pulumi|terragrunt'
   # Azure account name color.
   typeset -g POWERLEVEL9K_AZURE_FOREGROUND=32
   # Custom icon.
   # typeset -g POWERLEVEL9K_AZURE_VISUAL_IDENTIFIER_EXPANSION='⭐'
 
-  ##########[ gcloud: google cloud account and project (https://cloud.google.com/) ]###########
+  ######### === gcloud (Google Cloud account and project) === #########
   # Show gcloud only when the command you are typing invokes one of these tools.
   # Tip: Remove the next line to always show gcloud.
   typeset -g POWERLEVEL9K_GCLOUD_SHOW_ON_COMMAND='gcloud|gcs|gsutil'
    # Google cloud color.
   typeset -g POWERLEVEL9K_GCLOUD_FOREGROUND=32
 
-  # Google cloud format. Change the value of POWERLEVEL9K_GCLOUD_PARTIAL_CONTENT_EXPANSION and/or
-  # POWERLEVEL9K_GCLOUD_COMPLETE_CONTENT_EXPANSION if the default is too verbose or not informative
-  # enough. You can use the following parameters in the expansions. Each of them corresponds to the
-  # output of `gcloud` tool.
-  #
-  #   Parameter                | Source
-  #   -------------------------|--------------------------------------------------------------------
-  #   P9K_GCLOUD_CONFIGURATION | gcloud config configurations list --format='value(name)'
-  #   P9K_GCLOUD_ACCOUNT       | gcloud config get-value account
-  #   P9K_GCLOUD_PROJECT_ID    | gcloud config get-value project
-  #   P9K_GCLOUD_PROJECT_NAME  | gcloud projects describe $P9K_GCLOUD_PROJECT_ID --format='value(name)'
-  #
-  # Note: ${VARIABLE//\%/%%} expands to ${VARIABLE} with all occurrences of '%' replaced with '%%'.
-  #
-  # Obtaining project name requires sending a request to Google servers. This can take a long time
-  # and even fail. When project name is unknown, P9K_GCLOUD_PROJECT_NAME is not set and gcloud
-  # prompt segment is in state PARTIAL. When project name gets known, P9K_GCLOUD_PROJECT_NAME gets
-  # set and gcloud prompt segment transitions to state COMPLETE.
-  #
-  # You can customize the format, icon and colors of gcloud segment separately for states PARTIAL
-  # and COMPLETE. You can also hide gcloud in state PARTIAL by setting
-  # POWERLEVEL9K_GCLOUD_PARTIAL_VISUAL_IDENTIFIER_EXPANSION and
-  # POWERLEVEL9K_GCLOUD_PARTIAL_CONTENT_EXPANSION to empty.
+  # Google cloud format.
   typeset -g POWERLEVEL9K_GCLOUD_PARTIAL_CONTENT_EXPANSION='${P9K_GCLOUD_PROJECT_ID//\%/%%}'
   typeset -g POWERLEVEL9K_GCLOUD_COMPLETE_CONTENT_EXPANSION='${P9K_GCLOUD_PROJECT_NAME//\%/%%}'
 
@@ -1089,41 +949,14 @@
   # this often. Negative value disables periodic polling. In this mode project name is retrieved
   # only when the current configuration, account or project id changes.
   typeset -g POWERLEVEL9K_GCLOUD_REFRESH_PROJECT_NAME_SECONDS=60
-
   # Custom icon.
   # typeset -g POWERLEVEL9K_GCLOUD_VISUAL_IDENTIFIER_EXPANSION='⭐'
 
-  #[ google_app_cred: google application credentials (https://cloud.google.com/docs/authentication/production) ]#
+  ######### === google_app_cred (Google application credentials) === #########
   # Show google_app_cred only when the command you are typing invokes one of these tools.
   # Tip: Remove the next line to always show google_app_cred.
   typeset -g POWERLEVEL9K_GOOGLE_APP_CRED_SHOW_ON_COMMAND='terraform|pulumi|terragrunt'
-
-  # Google application credentials classes for the purpose of using different colors, icons and
-  # expansions with different credentials.
-  #
-  # POWERLEVEL9K_GOOGLE_APP_CRED_CLASSES is an array with even number of elements. The first
-  # element in each pair defines a pattern against which the current kubernetes context gets
-  # matched. More specifically, it's P9K_CONTENT prior to the application of context expansion
-  # (see below) that gets matched. If you unset all POWERLEVEL9K_GOOGLE_APP_CRED_*CONTENT_EXPANSION
-  # parameters, you'll see this value in your prompt. The second element of each pair in
-  # POWERLEVEL9K_GOOGLE_APP_CRED_CLASSES defines the context class. Patterns are tried in order.
-  # The first match wins.
-  #
-  # For example, given these settings:
-  #
-  #   typeset -g POWERLEVEL9K_GOOGLE_APP_CRED_CLASSES=(
-  #     '*:*prod*:*'  PROD
-  #     '*:*test*:*'  TEST
-  #     '*'           DEFAULT)
-  #
-  # If your current Google application credentials is "service_account deathray-testing x@y.com",
-  # its class is TEST because it doesn't match the pattern '* *prod* *' but does match '* *test* *'.
-  #
-  # You can define different colors, icons and content expansions for different classes:
-  #
-  #   typeset -g POWERLEVEL9K_GOOGLE_APP_CRED_TEST_FOREGROUND=28
-  #   typeset -g POWERLEVEL9K_GOOGLE_APP_CRED_TEST_VISUAL_IDENTIFIER_EXPANSION='⭐'
-  #   typeset -g POWERLEVEL9K_GOOGLE_APP_CRED_TEST_CONTENT_EXPANSION='$P9K_GOOGLE_APP_CRED_PROJECT_ID'
+  # POWERLEVEL9K_GOOGLE_APP_CRED_CLASSES is an array with even number of elements.
   typeset -g POWERLEVEL9K_GOOGLE_APP_CRED_CLASSES=(
       # '*:*prod*:*'  PROD    # These values are examples that are unlikely
       # '*:*test*:*'  TEST    # to match your needs. Customize them as needed.
@@ -1132,22 +965,10 @@
   # typeset -g POWERLEVEL9K_GOOGLE_APP_CRED_DEFAULT_VISUAL_IDENTIFIER_EXPANSION='⭐'
 
   # Use POWERLEVEL9K_GOOGLE_APP_CRED_CONTENT_EXPANSION to specify the content displayed by
-  # google_app_cred segment. Parameter expansions are very flexible and fast, too. See reference:
-  # http://zsh.sourceforge.net/Doc/Release/Expansion.html#Parameter-Expansion.
-  #
-  # You can use the following parameters in the expansion. Each of them corresponds to one of the
-  # fields in the JSON file pointed to by GOOGLE_APPLICATION_CREDENTIALS.
-  #
-  #   Parameter                        | JSON key file field
-  #   ---------------------------------+---------------
-  #   P9K_GOOGLE_APP_CRED_TYPE         | type
-  #   P9K_GOOGLE_APP_CRED_PROJECT_ID   | project_id
-  #   P9K_GOOGLE_APP_CRED_CLIENT_EMAIL | client_email
-  #
-  # Note: ${VARIABLE//\%/%%} expands to ${VARIABLE} with all occurrences of '%' replaced by '%%'.
+  # google_app_cred segment.
   typeset -g POWERLEVEL9K_GOOGLE_APP_CRED_DEFAULT_CONTENT_EXPANSION='${P9K_GOOGLE_APP_CRED_PROJECT_ID//\%/%%}'
 
-  ##############[ toolbox: toolbox name (https://github.com/containers/toolbox) ]###############
+  ######### === toolbox (Toolbox name) === #########
   # Toolbox color.
   typeset -g POWERLEVEL9K_TOOLBOX_FOREGROUND=178
   # Don't display the name of the toolbox if it matches fedora-toolbox-*.
@@ -1157,13 +978,13 @@
   # Custom prefix.
   typeset -g POWERLEVEL9K_TOOLBOX_PREFIX='%246Fin '
 
-  ###############################[ public_ip: public IP address ]###############################
+  ######### === public_ip (Public IP address) === #########
   # Public IP color.
   typeset -g POWERLEVEL9K_PUBLIC_IP_FOREGROUND=94
   # Custom icon.
   # typeset -g POWERLEVEL9K_PUBLIC_IP_VISUAL_IDENTIFIER_EXPANSION='⭐'
 
-  ########################[ vpn_ip: virtual private network indicator ]#########################
+  ######### === vpn_ip: virtual private network indicator) === #########
   # VPN IP color.
   typeset -g POWERLEVEL9K_VPN_IP_FOREGROUND=81
   # When on VPN, show just an icon without the IP address.
@@ -1179,35 +1000,22 @@
   # Custom icon.
   # typeset -g POWERLEVEL9K_VPN_IP_VISUAL_IDENTIFIER_EXPANSION='⭐'
 
-  ###########[ ip: ip address and bandwidth usage for a specified network interface ]###########
+  ######### === ip (IP address and bandwidth usage for a specified network interface) === #########
   # IP color.
   typeset -g POWERLEVEL9K_IP_FOREGROUND=38
-  # The following parameters are accessible within the expansion:
-  #
-  #   Parameter             | Meaning
-  #   ----------------------+-------------------------------------------
-  #   P9K_IP_IP             | IP address
-  #   P9K_IP_INTERFACE      | network interface
-  #   P9K_IP_RX_BYTES       | total number of bytes received
-  #   P9K_IP_TX_BYTES       | total number of bytes sent
-  #   P9K_IP_RX_BYTES_DELTA | number of bytes received since last prompt
-  #   P9K_IP_TX_BYTES_DELTA | number of bytes sent since last prompt
-  #   P9K_IP_RX_RATE        | receive rate (since last prompt)
-  #   P9K_IP_TX_RATE        | send rate (since last prompt)
   typeset -g POWERLEVEL9K_IP_CONTENT_EXPANSION='${P9K_IP_RX_RATE:+%70F⇣$P9K_IP_RX_RATE }${P9K_IP_TX_RATE:+%215F⇡$P9K_IP_TX_RATE }%38F$P9K_IP_IP'
   # Show information for the first network interface whose name matches this regular expression.
-  # Run `ifconfig` or `ip -4 a show` to see the names of all network interfaces.
   typeset -g POWERLEVEL9K_IP_INTERFACE='[ew].*'
   # Custom icon.
   # typeset -g POWERLEVEL9K_IP_VISUAL_IDENTIFIER_EXPANSION='⭐'
 
-  #########################[ proxy: system-wide http/https/ftp proxy ]##########################
+  ######### === proxy (System-wide http/https/ftp proxy) === #########
   # Proxy color.
   typeset -g POWERLEVEL9K_PROXY_FOREGROUND=68
   # Custom icon.
   # typeset -g POWERLEVEL9K_PROXY_VISUAL_IDENTIFIER_EXPANSION='⭐'
 
-  ################################[ battery: internal battery ]#################################
+  ######### === battery (Internal battery) === #########
   # Show battery in red when it's below this level and not connected to power supply.
   typeset -g POWERLEVEL9K_BATTERY_LOW_THRESHOLD=20
   typeset -g POWERLEVEL9K_BATTERY_LOW_FOREGROUND=160
@@ -1220,33 +1028,13 @@
   # Don't show the remaining time to charge/discharge.
   typeset -g POWERLEVEL9K_BATTERY_VERBOSE=false
 
-  #####################################[ wifi: wifi speed ]#####################################
+  ######### === wifi (WiFi speed) === #########
   # WiFi color.
   typeset -g POWERLEVEL9K_WIFI_FOREGROUND=68
   # Custom icon.
   # typeset -g POWERLEVEL9K_WIFI_VISUAL_IDENTIFIER_EXPANSION='⭐'
 
-  # Use different colors and icons depending on signal strength ($P9K_WIFI_BARS).
-  #
-  #   # Wifi colors and icons for different signal strength levels (low to high).
-  #   typeset -g my_wifi_fg=(68 68 68 68 68)                           # <-- change these values
-  #   typeset -g my_wifi_icon=('WiFi' 'WiFi' 'WiFi' 'WiFi' 'WiFi')     # <-- change these values
-  #
-  #   typeset -g POWERLEVEL9K_WIFI_CONTENT_EXPANSION='%F{${my_wifi_fg[P9K_WIFI_BARS+1]}}$P9K_WIFI_LAST_TX_RATE Mbps'
-  #   typeset -g POWERLEVEL9K_WIFI_VISUAL_IDENTIFIER_EXPANSION='%F{${my_wifi_fg[P9K_WIFI_BARS+1]}}${my_wifi_icon[P9K_WIFI_BARS+1]}'
-  #
-  # The following parameters are accessible within the expansions:
-  #
-  #   Parameter             | Meaning
-  #   ----------------------+---------------
-  #   P9K_WIFI_SSID         | service set identifier, a.k.a. network name
-  #   P9K_WIFI_LINK_AUTH    | authentication protocol such as "wpa2-psk" or "none"; empty if unknown
-  #   P9K_WIFI_LAST_TX_RATE | wireless transmit rate in megabits per second
-  #   P9K_WIFI_RSSI         | signal strength in dBm, from -120 to 0
-  #   P9K_WIFI_NOISE        | noise in dBm, from -120 to 0
-  #   P9K_WIFI_BARS         | signal strength in bars, from 0 to 4 (derived from P9K_WIFI_RSSI and P9K_WIFI_NOISE)
-
-  ####################################[ time: current time ]####################################
+  ######### === time (Current time) === #########
   # Current time color.
   typeset -g POWERLEVEL9K_TIME_FOREGROUND=66
   # Format for the current time: 09:51:02. See `man 3 strftime`.
@@ -1260,27 +1048,12 @@
   # Custom prefix.
   typeset -g POWERLEVEL9K_TIME_PREFIX='%246Fat '
 
-  # Example of a user-defined prompt segment. Function prompt_example will be called on every
-  # prompt if `example` prompt segment is added to POWERLEVEL9K_LEFT_PROMPT_ELEMENTS or
-  # POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS. It displays an icon and orange text greeting the user.
-  #
-  # Type `p10k help segment` for documentation and a more sophisticated example.
+  # Example of a user-defined prompt segment.
   function prompt_example() {
     p10k segment -f 208 -i '⭐' -t 'hello, %n'
   }
 
-  # User-defined prompt segments may optionally provide an instant_prompt_* function. Its job
-  # is to generate the prompt segment for display in instant prompt. See
-  # https://github.com/romkatv/powerlevel10k/blob/master/README.md#instant-prompt.
-  #
-  # Powerlevel10k will call instant_prompt_* at the same time as the regular prompt_* function
-  # and will record all `p10k segment` calls it makes. When displaying instant prompt, Powerlevel10k
-  # will replay these calls without actually calling instant_prompt_*. It is imperative that
-  # instant_prompt_* always makes the same `p10k segment` calls regardless of environment. If this
-  # rule is not observed, the content of instant prompt will be incorrect.
-  #
-  # Usually, you should either not define instant_prompt_* or simply call prompt_* from it. If
-  # instant_prompt_* is not defined for a segment, the segment won't be shown in instant prompt.
+  # User-defined prompt segments may optionally provide an instant_prompt_* function.
   function instant_prompt_example() {
     # Since prompt_example always makes the same `p10k segment` calls, we can call it from
     # instant_prompt_example. This will give us the same `example` prompt segment in the instant
@@ -1289,34 +1062,10 @@
   }
 
   # User-defined prompt segments can be customized the same way as built-in segments.
-  # typeset -g POWERLEVEL9K_EXAMPLE_FOREGROUND=208
-  # typeset -g POWERLEVEL9K_EXAMPLE_VISUAL_IDENTIFIER_EXPANSION='⭐'
-
-  # Transient prompt works similarly to the builtin transient_rprompt option. It trims down prompt
-  # when accepting a command line. Supported values:
-  #
-  #   - off:      Don't change prompt when accepting a command line.
-  #   - always:   Trim down prompt when accepting a command line.
-  #   - same-dir: Trim down prompt when accepting a command line unless this is the first command
-  #               typed after changing current working directory.
   typeset -g POWERLEVEL9K_TRANSIENT_PROMPT=always
-
   # Instant prompt mode.
-  #
-  #   - off:     Disable instant prompt. Choose this if you've tried instant prompt and found
-  #              it incompatible with your zsh configuration files.
-  #   - quiet:   Enable instant prompt and don't print warnings when detecting console output
-  #              during zsh initialization. Choose this if you've read and understood
-  #              https://github.com/romkatv/powerlevel10k/blob/master/README.md#instant-prompt.
-  #   - verbose: Enable instant prompt and print a warning when detecting console output during
-  #              zsh initialization. Choose this if you've never tried instant prompt, haven't
-  #              seen the warning, or if you are unsure what this all means.
   typeset -g POWERLEVEL9K_INSTANT_PROMPT=verbose
-
   # Hot reload allows you to change POWERLEVEL9K options after Powerlevel10k has been initialized.
-  # For example, you can type POWERLEVEL9K_BACKGROUND=red and see your prompt turn red. Hot reload
-  # can slow down prompt by 1-2 milliseconds, so it's better to keep it turned off unless you
-  # really need it.
   typeset -g POWERLEVEL9K_DISABLE_HOT_RELOAD=true
 
   # If p10k is already loaded, reload configuration.
@@ -1324,8 +1073,9 @@
   (( ! $+functions[p10k] )) || p10k reload
 }
 
-# Tell `p10k configure` which file it should overwrite.
+# === Overwrite this file when 'p10k configure' === #
 typeset -g POWERLEVEL9K_CONFIG_FILE=${${(%):-%x}:a}
 
+# === Config options === #
 (( ${#p10k_config_opts} )) && setopt ${p10k_config_opts[@]}
 'builtin' 'unset' 'p10k_config_opts'
