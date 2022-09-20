@@ -1,0 +1,13 @@
+# === GRUB Configuration by iWas <3 === #
+
+GRUB_DEFAULT=0
+GRUB_TIMEOUT=60
+GRUB_DISTRIBUTOR="Arch Linux"
+GRUB_CMDLINE_LINUX_DEFAULT="loglevel=3"
+GRUB_CMDLINE_LINUX=""
+
+GRUB_TIMEOUT_STYLE="menu"
+GRUB_DISABLE_RECOVERY=true
+GRUB_GFXMODE="auto"
+
+GRUB_THEME="/boot/grub/themes/CyberRe/theme.txt"
