@@ -1,0 +1,44 @@
+# === Picom Configuration by iWas <3 === #
+
+# === CORNERS === #
+corner-radius = 0
+round-borders = 1
+
+# === SHADOWS === #
+shadow = true
+shadow-radius = 15
+#shadow-opacity = .7
+shadow-offset-x = -15
+shadow-offset-y = -15
+
+# === FADING === #
+fading = true
+fade-in-step = 0.03
+fade-out-step = 0.03
+
+# === OPACITY === #
+inactive-opacity = 1.0
+frame-opacity = 1.0
+menu-opacity = 1.0
+inactive-opacity-override = false
+active-opacity = 1.0
+
+# === GENERAL === #
+backend = "glx"
+vsync = false
+mark-wmwin-focused = true
+mark-ovredir-focused = true
+detect-rounded-corners = true
+detect-client-opacity = true
+detect-transient = true
+detect-client-leader = true
+use-damage = false
+log-level = "warn"
+wintypes:
+{
+  tooltip = { fade = true; shadow = true; shadow-radius = 0; shadow-opacity = 1.0; shadow-offset-x = -20; shadow-offset-y = -20; opacity = 0.8; full-shadow = true }
+  dnd = { shadow = false }
+  dropdown_menu = { shadow = false }
+  popup_menu    = { shadow = false }
+  utility       = { shadow = false }
+}
