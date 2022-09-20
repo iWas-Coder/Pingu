@@ -1,3 +1,45 @@
 #!/bin/bash
 
+# === Banner === #
+banner () {
+  echo "    ____  _                  "
+  echo "   / __ \(_)___  ____ ___  __"
+  echo "  / /_/ / / __ \/ __ \`/ / / /";
+  echo " / ____/ / / / / /_/ / /_/ /    (by iWas <3)"
+  echo "/_/   /_/_/ /_/\__, /\__,_/  "
+  echo "              /____/         "
+  echo "---------------------------------------------"
+}
+banner
+
+# === Ctrl + C === #
+ctrl_c () {
+  echo -e "\n[-] Process cancelled by user. Exiting...\n"
+  tput cnorm; exit 1
+}
+trap ctrl_c INT
+
+# === Hiding cursor === #
+tput civis
+
+# === Sudo privileges === #
+echo "[!] Checking if current session has sudo privileges..."
 sudo pwd > /dev/null 2>&1
+echo -e "[+] Sudo privileges obtained! Thank you <3\n"
+
+# === 1. Official Packages Installation === #
+for pkg in $(cat ./assets/pkgs/official_pkgs); do
+  sleep 1
+  pacman -S $pkg
+  clear
+done
+
+# === 2. AUR Packages Installation === #
+for pkg in $(cat ./assets/pkgs/aur_pkgs); do
+  sleep 1
+  yay -S $pkg
+  clear
+done
+banner
+
+# === 3. GRUB Personalization === #
