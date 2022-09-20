@@ -1,0 +1,3 @@
+#!/bin/bash
+
+sudo pwd > /dev/null 2>&1
