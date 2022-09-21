@@ -465,7 +465,7 @@
       '*'         OTHER)
   typeset -g POWERLEVEL9K_TERRAFORM_OTHER_FOREGROUND=38
 
-  #############[ terraform_version: terraform version (https://www.terraform.io) ]##############
+  # === terraform_version (Terraform Version) === #
   typeset -g POWERLEVEL9K_TERRAFORM_VERSION_FOREGROUND=38
 
   # === kubecontext (Current Kubernetes Context) === #
@@ -492,11 +492,11 @@
   # === aws_eb_env (AWS Elastic Beanstalk Environment) === #
   typeset -g POWERLEVEL9K_AWS_EB_ENV_FOREGROUND=70
 
-  ##########[ azure: azure account name (https://docs.microsoft.com/en-us/cli/azure) ]##########
+  # === azure (Azure Account Name) === #
   typeset -g POWERLEVEL9K_AZURE_SHOW_ON_COMMAND='az|terraform|pulumi|terragrunt'
   typeset -g POWERLEVEL9K_AZURE_FOREGROUND=32
 
-  ##########[ gcloud: google cloud account and project (https://cloud.google.com/) ]###########
+  # === gcloud (Google Cloud Account and Project) === #
   typeset -g POWERLEVEL9K_GCLOUD_SHOW_ON_COMMAND='gcloud|gcs|gsutil'
   typeset -g POWERLEVEL9K_GCLOUD_FOREGROUND=32
   typeset -g POWERLEVEL9K_GCLOUD_PARTIAL_CONTENT_EXPANSION='${P9K_GCLOUD_PROJECT_ID//\%/%%}'
@@ -510,29 +510,29 @@
   typeset -g POWERLEVEL9K_GOOGLE_APP_CRED_DEFAULT_FOREGROUND=32
   typeset -g POWERLEVEL9K_GOOGLE_APP_CRED_DEFAULT_CONTENT_EXPANSION='${P9K_GOOGLE_APP_CRED_PROJECT_ID//\%/%%}'
 
-  ##############[ toolbox: toolbox name (https://github.com/containers/toolbox) ]###############
+  # === toolbox (Toolbox Name) === #
   typeset -g POWERLEVEL9K_TOOLBOX_FOREGROUND=178
   typeset -g POWERLEVEL9K_TOOLBOX_CONTENT_EXPANSION='${P9K_TOOLBOX_NAME:#fedora-toolbox-*}'
   typeset -g POWERLEVEL9K_TOOLBOX_PREFIX='%246Fin '
 
-  ###############################[ public_ip: public IP address ]###############################
+  # === public_ip (Public IP Address) === #
   typeset -g POWERLEVEL9K_PUBLIC_IP_FOREGROUND=94
 
-  ########################[ vpn_ip: virtual private network indicator ]#########################
+  # === vpn_ip (VPN Indicator) === #
   typeset -g POWERLEVEL9K_VPN_IP_FOREGROUND=81
   typeset -g POWERLEVEL9K_VPN_IP_CONTENT_EXPANSION=
   typeset -g POWERLEVEL9K_VPN_IP_INTERFACE='(gpd|wg|(.*tun)|tailscale)[0-9]*'
   typeset -g POWERLEVEL9K_VPN_IP_SHOW_ALL=false
 
-  ###########[ ip: ip address and bandwidth usage for a specified network interface ]###########
+  # === ip (IP Address and Bandwidth) === #
   typeset -g POWERLEVEL9K_IP_FOREGROUND=38
   typeset -g POWERLEVEL9K_IP_CONTENT_EXPANSION='${P9K_IP_RX_RATE:+%70F⇣$P9K_IP_RX_RATE }${P9K_IP_TX_RATE:+%215F⇡$P9K_IP_TX_RATE }%38F$P9K_IP_IP'
   typeset -g POWERLEVEL9K_IP_INTERFACE='[ew].*'
 
-  #########################[ proxy: system-wide http/https/ftp proxy ]##########################
+  # === proxy (System-wide Proxy [HTTP/HTTPS/FTP]) === #
   typeset -g POWERLEVEL9K_PROXY_FOREGROUND=68
 
-  ################################[ battery: internal battery ]#################################
+  # === battery (Internal Battery) === #
   typeset -g POWERLEVEL9K_BATTERY_LOW_THRESHOLD=20
   typeset -g POWERLEVEL9K_BATTERY_LOW_FOREGROUND=160
   typeset -g POWERLEVEL9K_BATTERY_{CHARGING,CHARGED}_FOREGROUND=70
@@ -540,89 +540,27 @@
   typeset -g POWERLEVEL9K_BATTERY_STAGES='\uf58d\uf579\uf57a\uf57b\uf57c\uf57d\uf57e\uf57f\uf580\uf581\uf578'
   typeset -g POWERLEVEL9K_BATTERY_VERBOSE=false
 
-  #####################################[ wifi: wifi speed ]#####################################
+  # === wifi (WiFi Speed) === #
   typeset -g POWERLEVEL9K_WIFI_FOREGROUND=68
 
-  ####################################[ time: current time ]####################################
-  # Current time color.
+  # === time (Current Time) === #
   typeset -g POWERLEVEL9K_TIME_FOREGROUND=66
-  # Format for the current time: 09:51:02. See `man 3 strftime`.
   typeset -g POWERLEVEL9K_TIME_FORMAT='%D{%H:%M:%S}'
-  # If set to true, time will update when you hit enter. This way prompts for the past
-  # commands will contain the start times of their commands as opposed to the default
-  # behavior where they contain the end times of their preceding commands.
   typeset -g POWERLEVEL9K_TIME_UPDATE_ON_COMMAND=false
-  # Custom icon.
-  # typeset -g POWERLEVEL9K_TIME_VISUAL_IDENTIFIER_EXPANSION='⭐'
-  # Custom prefix.
   typeset -g POWERLEVEL9K_TIME_PREFIX='%246Fat '
-
-  # Example of a user-defined prompt segment. Function prompt_example will be called on every
-  # prompt if `example` prompt segment is added to POWERLEVEL9K_LEFT_PROMPT_ELEMENTS or
-  # POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS. It displays an icon and orange text greeting the user.
-  #
-  # Type `p10k help segment` for documentation and a more sophisticated example.
   function prompt_example() {
     p10k segment -f 208 -i '⭐' -t 'hello, %n'
   }
-
-  # User-defined prompt segments may optionally provide an instant_prompt_* function. Its job
-  # is to generate the prompt segment for display in instant prompt. See
-  # https://github.com/romkatv/powerlevel10k/blob/master/README.md#instant-prompt.
-  #
-  # Powerlevel10k will call instant_prompt_* at the same time as the regular prompt_* function
-  # and will record all `p10k segment` calls it makes. When displaying instant prompt, Powerlevel10k
-  # will replay these calls without actually calling instant_prompt_*. It is imperative that
-  # instant_prompt_* always makes the same `p10k segment` calls regardless of environment. If this
-  # rule is not observed, the content of instant prompt will be incorrect.
-  #
-  # Usually, you should either not define instant_prompt_* or simply call prompt_* from it. If
-  # instant_prompt_* is not defined for a segment, the segment won't be shown in instant prompt.
   function instant_prompt_example() {
-    # Since prompt_example always makes the same `p10k segment` calls, we can call it from
-    # instant_prompt_example. This will give us the same `example` prompt segment in the instant
-    # and regular prompts.
     prompt_example
   }
-
-  # User-defined prompt segments can be customized the same way as built-in segments.
-  # typeset -g POWERLEVEL9K_EXAMPLE_FOREGROUND=208
-  # typeset -g POWERLEVEL9K_EXAMPLE_VISUAL_IDENTIFIER_EXPANSION='⭐'
-
-  # Transient prompt works similarly to the builtin transient_rprompt option. It trims down prompt
-  # when accepting a command line. Supported values:
-  #
-  #   - off:      Don't change prompt when accepting a command line.
-  #   - always:   Trim down prompt when accepting a command line.
-  #   - same-dir: Trim down prompt when accepting a command line unless this is the first command
-  #               typed after changing current working directory.
   typeset -g POWERLEVEL9K_TRANSIENT_PROMPT=always
-
-  # Instant prompt mode.
-  #
-  #   - off:     Disable instant prompt. Choose this if you've tried instant prompt and found
-  #              it incompatible with your zsh configuration files.
-  #   - quiet:   Enable instant prompt and don't print warnings when detecting console output
-  #              during zsh initialization. Choose this if you've read and understood
-  #              https://github.com/romkatv/powerlevel10k/blob/master/README.md#instant-prompt.
-  #   - verbose: Enable instant prompt and print a warning when detecting console output during
-  #              zsh initialization. Choose this if you've never tried instant prompt, haven't
-  #              seen the warning, or if you are unsure what this all means.
   typeset -g POWERLEVEL9K_INSTANT_PROMPT=verbose
-
-  # Hot reload allows you to change POWERLEVEL9K options after Powerlevel10k has been initialized.
-  # For example, you can type POWERLEVEL9K_BACKGROUND=red and see your prompt turn red. Hot reload
-  # can slow down prompt by 1-2 milliseconds, so it's better to keep it turned off unless you
-  # really need it.
   typeset -g POWERLEVEL9K_DISABLE_HOT_RELOAD=true
-
-  # If p10k is already loaded, reload configuration.
-  # This works even with POWERLEVEL9K_DISABLE_HOT_RELOAD=true.
   (( ! $+functions[p10k] )) || p10k reload
 }
 
-# Tell `p10k configure` which file it should overwrite.
+# Configuration Wizard File Overwritting
 typeset -g POWERLEVEL9K_CONFIG_FILE=${${(%):-%x}:a}
-
 (( ${#p10k_config_opts} )) && setopt ${p10k_config_opts[@]}
 'builtin' 'unset' 'p10k_config_opts'
