@@ -1,8 +1,8 @@
 # === Picom Configuration by iWas <3 === #
 
 # === CORNERS === #
-corner-radius = 0
-round-borders = 1
+corner-radius = 2
+round-borders = 2
 
 # === SHADOWS === #
 shadow = true
@@ -17,11 +17,11 @@ fade-in-step = 0.03
 fade-out-step = 0.03
 
 # === OPACITY === #
-inactive-opacity = 1.0
-frame-opacity = 1.0
-menu-opacity = 1.0
+active-opacity = 0.95
+inactive-opacity = 0.95
+frame-opacity = 0.95
+menu-opacity = 0.95
 inactive-opacity-override = false
-active-opacity = 1.0
 
 # === GENERAL === #
 backend = "glx"
