@@ -2,9 +2,9 @@
 
 GRUB_DEFAULT=0
 GRUB_TIMEOUT=60
-GRUB_DISTRIBUTOR="Arch Linux"
+GRUB_DISTRIBUTOR="Arch"
 GRUB_CMDLINE_LINUX_DEFAULT="loglevel=3"
-GRUB_CMDLINE_LINUX=""
+GRUB_CMDLINE_LINUX="root=/dev/mapper/cryptroot rd.luks.name=<UUID>=cryptroot rd.luks.name=<UUID>=crypthome rd.luks.options=timeout=0 rootflags=x-systemd.device-timeout=0"
 
 GRUB_TIMEOUT_STYLE="menu"
 GRUB_DISABLE_RECOVERY=true
