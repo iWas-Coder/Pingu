@@ -6,8 +6,12 @@ GRUB_DISTRIBUTOR="Arch"
 GRUB_CMDLINE_LINUX_DEFAULT="loglevel=3"
 GRUB_CMDLINE_LINUX="root=/dev/mapper/cryptroot rd.luks.name=<UUID>=cryptroot rd.luks.name=<UUID>=crypthome rd.luks.options=timeout=0 rootflags=x-systemd.device-timeout=0"
 
+GRUB_PRELOAD_MODULES="part_gpt part_msdos"
+GRUB_ENABLE_CRYPTODISK=y
 GRUB_TIMEOUT_STYLE="menu"
+GRUB_TERMINAL_INPUT=console
 GRUB_DISABLE_RECOVERY=true
-GRUB_GFXMODE="auto"
 
+GRUB_GFXMODE=auto
+GRUB_GFXPAYLOAD_LINUX=keep
 GRUB_THEME="/boot/grub/themes/CyberRe/theme.txt"
