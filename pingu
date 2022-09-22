@@ -42,4 +42,4 @@ for pkg in $(cat ./assets/pkgs/aur_pkgs); do
 done
 banner
 
-# === 3. GRUB Personalization === #
+# === 3. Xorg Personalization === #
