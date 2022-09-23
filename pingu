@@ -33,6 +33,9 @@ echo -e "[+] Sudo privileges obtained! Thank you <3\n"
 sleep 2
 
 # === 1. GRUB Configuration === #
+echo "[*] Downloading GRUB Custom Configuration file..."
+curl -s -X GET "https://raw.githubusercontent.com/iWas-Coder/Pingu/main/config/grub/grub" > /etc/default/grub
+
 echo "[?] Are you using LUKS encryption?"
 select option in "YES" "NO"; do
   case $option in
@@ -49,9 +52,23 @@ lsblk -np --output NAME,MOUNTPOINT
 echo "-----------------------------------"
 
 if [ "$LUKS" = true ]; then
-  read -p "Encrypted ROOT partition"
-  ROOT_UUID=
-  HOME_UUID=
+  echo "[*] Modifying GRUB Configuration to decrypt partitions during boot..."
+
+  unset ROOT_PARTITION
+  while [ -z "$ROOT_PARTITION" ]; do
+    read -p "[?] Encrypted ROOT partition (with /dev path): " $ROOT_PARTITION
+  done
+  unset HOME_PARTITION
+  while [ -z "$HOME_PARTITION" ]; do
+    read -p "[?] Encrypted HOME partition (with /dev path): " $HOME_PARTITION
+  done
+  
+  ROOT_UUID=$(blkid $ROOT_PARTITION | grep -oP '(?<= UUID=").*?(?=")')
+  echo "[+] $ROOT_PARTITION UUID: $ROOT_UUID"
+  HOME_UUID=$(blkid $HOME_PARTITION | grep -oP '(?<= UUID=").*?(?=")')
+  echo "[+] $HOME_PARTITION UUID: $HOME_UUID"
+  
+  
 fi
 
 sleep 2
