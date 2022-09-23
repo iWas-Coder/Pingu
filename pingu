@@ -10,6 +10,7 @@ banner () {
   echo "/_/   /_/_/ /_/\__, /\__,_/  "
   echo "              /____/         "
   echo "---------------------------------------------"
+  sleep 2
 }
 banner
 
@@ -23,8 +24,6 @@ trap ctrl_c INT
 # === Hiding cursor === #
 tput civis
 
-sleep 2
-
 # === 0. Sudo privileges === #
 echo "[!] Checking if current session has sudo privileges..."
 sudo pwd > /dev/null 2>&1
@@ -32,7 +31,6 @@ echo -e "[+] Sudo privileges obtained! Thank you <3\n"
 # === END(0) === #
 
 banner
-sleep 2
 
 # === 1. GRUB Configuration === #
 echo "[*] Downloading GRUB Custom Configuration file..."
@@ -77,7 +75,6 @@ fi
 # === END(1) === #
 
 banner
-sleep 2
 
 # === 2. Official Packages Installation === #
 for pkg in $(cat ./assets/pkgs/official_pkgs); do
@@ -89,7 +86,6 @@ done
 # === END(2) === #
 
 banner
-sleep 2
 
 # === 3. AUR Packages Installation === #
 for pkg in $(cat ./assets/pkgs/aur_pkgs); do
@@ -101,10 +97,11 @@ done
 # === END(3) === #
 
 banner
-sleep 2
 
 # === 4. From Source Programs Installation === #
 # === END(4) === #
+
+banner
 
 # === 5. ZSH Configuration === #
 # === END(5) === #
