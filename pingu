@@ -2,6 +2,7 @@
 
 # === Banner === #
 banner () {
+  clear
   echo "    ____  _                  "
   echo "   / __ \(_)___  ____ ___  __"
   echo "  / /_/ / / __ \/ __ \`/ / / /";
@@ -22,24 +23,61 @@ trap ctrl_c INT
 # === Hiding cursor === #
 tput civis
 
+sleep 2
+
 # === Sudo privileges === #
 echo "[!] Checking if current session has sudo privileges..."
 sudo pwd > /dev/null 2>&1
 echo -e "[+] Sudo privileges obtained! Thank you <3\n"
 
-# === 1. Official Packages Installation === #
-for pkg in $(cat ./assets/pkgs/official_pkgs); do
-  sleep 1
-  pacman -S $pkg
-  clear
+sleep 2
+
+# === 1. GRUB Configuration === #
+echo "[?] Are you using LUKS encryption?"
+select option in "YES" "NO"; do
+  case $option in
+    YES ) LUKS=true; break;;
+    NO ) LUKS=false; break;;
+  esac
 done
 
-# === 2. AUR Packages Installation === #
-for pkg in $(cat ./assets/pkgs/aur_pkgs); do
+sleep 2
+
+echo "[*] Showing disks and partitions..."
+echo "-----------------------------------"
+lsblk -np --output NAME,MOUNTPOINT
+echo "-----------------------------------"
+
+if [ "$LUKS" = true ]; then
+  read -p "Encrypted ROOT partition"
+  ROOT_UUID=
+  HOME_UUID=
+fi
+
+sleep 2
+
+# === 2. Official Packages Installation === #
+for pkg in $(cat ./assets/pkgs/official_pkgs); do
   sleep 1
-  yay -S $pkg
+  echo "[*] Installing official package '$pkg'..."
+  # pacman -S --noconfirm $pkg
   clear
 done
 banner
 
-# === 3. Xorg Personalization === #
+sleep 2
+
+# === 3. AUR Packages Installation === #
+for pkg in $(cat ./assets/pkgs/aur_pkgs); do
+  sleep 1
+  echo "[*] Installing AUR package '$pkg'..."
+  # yay -S --noconfirm --answerdiff=None $pkg
+  clear
+done
+banner
+
+# === 3. From Source Programs Installation === #
+# === 5. ZSH Configuration === #
+# === 6. Xorg Configuration === #
+# === 7. LightDM Configuration === #
+# === 8. Qtile Configuration === #
