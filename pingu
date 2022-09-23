@@ -25,16 +25,20 @@ tput civis
 
 sleep 2
 
-# === Sudo privileges === #
+# === 0. Sudo privileges === #
 echo "[!] Checking if current session has sudo privileges..."
 sudo pwd > /dev/null 2>&1
 echo -e "[+] Sudo privileges obtained! Thank you <3\n"
+# === END(0) === #
 
+banner
 sleep 2
 
 # === 1. GRUB Configuration === #
 echo "[*] Downloading GRUB Custom Configuration file..."
 curl -s -X GET "https://raw.githubusercontent.com/iWas-Coder/Pingu/main/config/grub/grub" > /etc/default/grub
+sleep 1
+echo -e "[+] File written to: /etc/default/grub\n"
 
 echo "[?] Are you using LUKS encryption?"
 select option in "YES" "NO"; do
@@ -70,7 +74,9 @@ if [ "$LUKS" = true ]; then
   
   
 fi
+# === END(1) === #
 
+banner
 sleep 2
 
 # === 2. Official Packages Installation === #
@@ -80,8 +86,9 @@ for pkg in $(cat ./assets/pkgs/official_pkgs); do
   # pacman -S --noconfirm $pkg
   clear
 done
-banner
+# === END(2) === #
 
+banner
 sleep 2
 
 # === 3. AUR Packages Installation === #
@@ -91,10 +98,22 @@ for pkg in $(cat ./assets/pkgs/aur_pkgs); do
   # yay -S --noconfirm --answerdiff=None $pkg
   clear
 done
-banner
+# === END(3) === #
 
-# === 3. From Source Programs Installation === #
+banner
+sleep 2
+
+# === 4. From Source Programs Installation === #
+# === END(4) === #
+
 # === 5. ZSH Configuration === #
+# === END(5) === #
+
 # === 6. Xorg Configuration === #
+# === END(6) === #
+
 # === 7. LightDM Configuration === #
+# === END(7) === #
+
 # === 8. Qtile Configuration === #
+# === END(8) === #
