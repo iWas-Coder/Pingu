@@ -32,7 +32,16 @@ echo -e "[+] Sudo privileges obtained! Thank you <3\n"
 
 banner
 
-# === 1. GRUB Configuration === #
+# === 1. User === #
+unset USER
+while [ -z "$USER" ]; do
+  read -p "[?] What's your username: " $USER
+done
+# === END(1) === #
+
+banner
+
+# === 2. GRUB Configuration === #
 echo "[*] Downloading GRUB Custom Configuration file..."
 curl -s -X GET "https://raw.githubusercontent.com/iWas-Coder/Pingu/main/config/grub/grub" > /etc/default/grub
 sleep 1
@@ -72,45 +81,82 @@ if [ "$LUKS" = true ]; then
   
   
 fi
-# === END(1) === #
+# === END(2) === #
 
 banner
 
-# === 2. Official Packages Installation === #
+# === 3. Official Packages Installation === #
 for pkg in $(cat ./assets/pkgs/official_pkgs); do
   sleep 1
   echo "[*] Installing official package '$pkg'..."
   # pacman -S --noconfirm $pkg
   clear
 done
-# === END(2) === #
+# === END(3) === #
 
 banner
 
-# === 3. AUR Packages Installation === #
+# === 4. AUR Packages Installation === #
 for pkg in $(cat ./assets/pkgs/aur_pkgs); do
   sleep 1
   echo "[*] Installing AUR package '$pkg'..."
   # yay -S --noconfirm --answerdiff=None $pkg
   clear
 done
-# === END(3) === #
-
-banner
-
-# === 4. From Source Programs Installation === #
 # === END(4) === #
 
 banner
 
-# === 5. ZSH Configuration === #
+# === 5. From Source Programs Installation === #
+cd /home/$USER
+
+echo "[*] Compiling and Installing Bento4 Tools..."
+sleep 2
+# Bento4 Tools
+git clone --quiet "https://github.com/axiomatic-systems/Bento4"
+cd Bento4
+mkdir build
+cd !$
+cmake -DCMAKE_BUILD_TYPE=Release ..
+make
+make install
+cd ../..
+rm -rf Bento4
+
+banner
+
+echo "[*] Compiling and Installing GEF for GDB..."
+sleep 2
+# GEF (GDB Enhanced Features)
+curl -fsSL "https://gef.blah.cat/sh" | bash
+
+banner
+
+echo "[*] Compiling and Installing Logiops..."
+sleep 2
+# logiops (Unofficial Logiech Options)
+git clone --quiet "https://github.com/PixlOne/logiops"
+cd logiops
+mkdir build
+cd !$
+cmake ..
+make
+make install
+systemctl enable --now logid
+cd ../..
+rm -rf logiops
 # === END(5) === #
 
-# === 6. Xorg Configuration === #
+banner
+
+# === 6. ZSH Configuration === #
 # === END(6) === #
 
-# === 7. LightDM Configuration === #
+# === 7. Xorg Configuration === #
 # === END(7) === #
 
-# === 8. Qtile Configuration === #
+# === 8. LightDM Configuration === #
 # === END(8) === #
+
+# === 9. Qtile Configuration === #
+# === END(9) === #
