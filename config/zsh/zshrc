@@ -71,6 +71,7 @@ alias vi='nvim'
 alias vim='nvim'
 alias gdb='LC_ALL=en.US.UTF-8 gdb'
 # Custom
+# alias (...)
 
 
 # === FUNCTIONS === #
