@@ -1,2 +1,2 @@
 picom &
-feh --bg-fill /usr/share/wallpaper/wallpaper_1 --bg-fill /usr/share/wallpaper/wallpaper_2 &
+feh --bg-fill /usr/share/wallpapers/wallpaper_1 --bg-fill /usr/share/wallpapers/wallpaper_2 &
