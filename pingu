@@ -192,6 +192,15 @@ sleep 1
 echo "[+] Qtile Configured!"
 # === END(8) === #
 
+# === 9. Wallpaper === #
+echo "[*] Configuring Qtile..."
+sleep 1
+cd $MAIN_PWD
+sudo cp -r ./config/wallpaper /usr/share/wallpaper
+sleep 1
+echo "[+] Qtile Configured!"
+# === END(9) === #
+
 banner
 
 echo "[+] Pingu Desktop Environment Fully Installed! :)"
