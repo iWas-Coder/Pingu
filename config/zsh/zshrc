@@ -62,6 +62,7 @@ bindkey "^[[1;3D" backward-word
 
 # === ALIASES === #
 # Basic
+alias sudo='sudo '
 alias ls='lsd --group-dirs=first'
 alias l='lsd -lh --group-dirs=first'
 alias ll='lsd -lha --group-dirs=first'
