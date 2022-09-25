@@ -23,6 +23,10 @@
     dir
     # Git Status
     vcs
+    # Command Duration
+    command_execution_time
+    # Context
+    context
   )
 
   # === Right Prompt Elements === #
