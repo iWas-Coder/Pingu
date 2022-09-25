@@ -44,7 +44,12 @@ banner
 echo "[*] Creating GRUB Custom Configuration file..."
 cp ./config/grub/grub /etc/default/grub
 sleep 1
-echo -e "[+] File written to: /etc/default/grub\n"
+echo "[+] File written to: /etc/default/grub"
+
+echo "[*] Setting GRUB Custom theme..."
+cp -r ./config/grub/CyberRe /boot/grub/themes/CyberRe
+sleep 1
+echo -e "[+] Theme copied correctly!\n"
 
 GRUB_CMDLINE_LINUX="root=/dev/mapper/<ROOT_NAME> rd.luks.name=<ROOT_UUID>=<ROOT_NAME> rd.luks.name=<HOME_UUID>=<HOME_NAME> rd.luks.options=timeout=0 rootflags=x-systemd.device-timeout=0"
 
