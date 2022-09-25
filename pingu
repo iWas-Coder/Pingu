@@ -97,7 +97,7 @@ banner
 for pkg in $(cat ./assets/pkgs/official_pkgs); do
   echo "[*] Installing official package '$pkg'..."
   sleep 2
-  pacman -S --noconfirm $pkg
+  sudo pacman -S --noconfirm $pkg
 done
 # === END(3) === #
 
