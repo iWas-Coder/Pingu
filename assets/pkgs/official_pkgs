@@ -29,6 +29,9 @@ go
 go-tools
 locate
 xorg
+xorg-server
+xorg-xinit
+grub-customizer
 qtile
 lxappearance
 qt5ct
