@@ -30,6 +30,8 @@ go-tools
 locate
 xorg
 qtile
+lxappearance
+qt5ct
 feh
 rofi
 kitty
