@@ -36,6 +36,7 @@ fi
 echo "[+] Hello, $USER :D"
 sleep 2
 echo "[!] Checking if current session has sudo privileges..."
+sleep 2
 sudo pwd > /dev/null 2>&1
 echo -e "[+] Sudo privileges obtained! Thank you <3\n"
 sleep 2
@@ -79,13 +80,10 @@ sleep 2
   
 GRUB_CMDLINE_LINUX=$(echo "$GRUB_CMDLINE_LINUX" | sed "s/<ROOT_NAME>/$ROOT_NAME/g" | sed "s/<ROOT_UUID>/$ROOT_UUID/" | sed "s/<HOME_NAME>/$HOME_NAME/" | sed "s/<HOME_UUID>/$HOME_UUID/")
 
-old_str="GRUB_CMDLINE_LINUX="""
-new_str="GRUB_CMDLINE_LINUX="$GRUB_CMDLINE_LINUX""
+old_str="GRUB_CMDLINE_LINUX=\"\""
+new_str="GRUB_CMDLINE_LINUX=\"$GRUB_CMDLINE_LINUX\""
 
-echo "$old_str"
-sleep 5
-echo "$new_str"
-sleep 60
+sleep 2
 
 sudo sed -i "s/$old_str/$new_str/" /etc/default/grub
 
