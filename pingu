@@ -209,14 +209,55 @@ echo "[+] Qtile Configured!"
 
 sleep 2
 
-# === 9. Wallpapers === #
+# === 9. Kitty Configuration === #
+echo "[*] Configuring Kitty..."
+sleep 2
+cd $MAIN_PWD
+cp -r ./config/kitty ~/.config/kitty
+sleep 2
+echo "[+] Kitty Configured!"
+# === END(9) === #
+
+# === 10. Picom Configuration === #
+echo "[*] Configuring Picom..."
+sleep 2
+cd $MAIN_PWD
+cp -r ./config/picom ~/.config/picom
+sleep 2
+echo "[+] Picom Configured!"
+# === END(10) === #
+
+# === 11. Ranger Configuration === #
+echo "[*] Configuring Ranger..."
+sleep 2
+cd $MAIN_PWD
+cp -r ./config/ranger ~/.config/ranger
+git clone "https://github.com/alexanderjeurissen/ranger_devicons" ~/.config/ranger/plugins
+sudo ln -s ~/.config/ranger /root/.config/ranger
+sleep 2
+echo "[+] Ranger Configured!"
+# === END(11) === #
+
+banner
+
+# === 12. Rofi Configuration === #
+echo "[*] Configuring Rofi..."
+sleep 2
+cd $MAIN_PWD
+cp -r ./config/rofi ~/.config/rofi
+sudo mv ~/.config/rofi/onedark.rasi /usr/share/rofi/themes
+sleep 2
+echo "[+] Rofi Configured!"
+# === END(12) === #
+
+# === 13. Wallpapers === #
 echo "[*] Configuring Wallpapers..."
 sleep 2
 cd $MAIN_PWD
 sudo cp -r ./config/wallpapers /usr/share/wallpapers
 sleep 2
 echo "[+] Wallpapers Configured!"
-# === END(9) === #
+# === END(13) === #
 
 banner
 
