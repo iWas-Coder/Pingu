@@ -95,6 +95,7 @@ banner
 
 # === 3. Official Packages Installation === #
 for pkg in $(cat ./assets/pkgs/official_pkgs); do
+  banner
   echo "[*] Installing official package '$pkg'..."
   sleep 2
   sudo pacman -S --noconfirm $pkg
@@ -105,10 +106,12 @@ banner
 
 # === 4. AUR Packages Installation === #
 for pkg in $(cat ./assets/pkgs/aur_pkgs); do
+  banner
   echo "[*] Installing AUR package '$pkg'..."
   sleep 2
   yay -S --noconfirm --answerdiff=None $pkg
 done
+yay -Sc
 # === END(4) === #
 
 banner
