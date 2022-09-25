@@ -66,18 +66,20 @@ echo "-----------------------------------"
 read -p "[?] Encrypted ROOT partition path (with /dev/...): " ROOT_PARTITION
 read -p "[?] Decrypted ROOT partition name (e.g. cryptroot): " ROOT_NAME
 read -p "[?] Encrypted HOME partition path (with /dev/...): " HOME_PARTITION
-read -p "[?] Decrypted HOME partition name (e.g. cryptroot): " HOME_NAME
+read -p "[?] Decrypted HOME partition name (e.g. crypthome): " HOME_NAME
+
+banner
 
 ROOT_UUID=$(sudo blkid $ROOT_PARTITION | grep -oP '(?<= UUID=").*?(?=")')
 echo "[+] $ROOT_PARTITION -> UUID: $ROOT_UUID"
 HOME_UUID=$(sudo blkid $HOME_PARTITION | grep -oP '(?<= UUID=").*?(?=")')
 echo "[+] $HOME_PARTITION -> UUID: $HOME_UUID"
 
-sleep 5
+sleep 2
   
 GRUB_CMDLINE_LINUX=$(echo "$GRUB_CMDLINE_LINUX" | sed "s/<ROOT_NAME>/$ROOT_NAME/g" | sed "s/<ROOT_UUID>/$ROOT_UUID/" | sed "s/<HOME_NAME>/$HOME_NAME/" | sed "s/<HOME_UUID>/$HOME_UUID/")
 
-sed -i "s/GRUB_CMDLINE_LINUX=\"\"/GRUB_CMDLINE_LINUX=\"$GRUB_CMDLINE_LINUX\"/" /etc/default/grub
+sudo sed -i "s/GRUB_CMDLINE_LINUX=\"\"/GRUB_CMDLINE_LINUX=\"$GRUB_CMDLINE_LINUX\"/" /etc/default/grub
 
 sleep 2
 
