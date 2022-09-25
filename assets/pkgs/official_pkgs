@@ -28,8 +28,8 @@ go
 go-tools
 locate
 xorg
-xorg-server
 qtile
+feh
 rofi
 kitty
 neovim
