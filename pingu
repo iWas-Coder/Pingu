@@ -122,7 +122,7 @@ echo "[*] Compiling and Installing Bento4 Tools..."
 sleep 2
 # Bento4 Tools
 cd ~/content
-git clone --quiet "https://github.com/axiomatic-systems/Bento4"
+git clone "https://github.com/axiomatic-systems/Bento4"
 cd Bento4
 mkdir build
 cd !$
@@ -145,7 +145,7 @@ echo "[*] Compiling and Installing Logiops..."
 sleep 2
 # logiops (Unofficial Logiech Options)
 cd ~/content
-git clone --quiet "https://github.com/PixlOne/logiops"
+git clone "https://github.com/PixlOne/logiops"
 cd logiops
 mkdir build
 cd !$
@@ -161,7 +161,7 @@ banner
 
 # === 6. ZSH Configuration === #
 echo "[*] Configuring ZSH..."
-sleep 1
+sleep 2
 cd $MAIN_PWD
 sudo cp ./config/zsh/zshrc ~/.zshrc
 sudo ln -s ~/.zshrc /root/.zshrc
@@ -174,7 +174,7 @@ sudo git clone "https://github.com/zsh-users/zsh-autosuggestions" /usr/share/cus
 sudo mkdir /usr/share/custom-zsh/zsh-sudo
 cd !$
 sudo wget "https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/plugins/sudo/sudo.plugin.zsh"
-sleep 1
+sleep 2
 echo "[+] ZSH Configured!"
 # === END(6) === #
 
@@ -182,11 +182,11 @@ banner
 
 # === 7. Xorg Configuration === #
 echo "[*] Configuring Xorg..."
-sleep 1
+sleep 2
 cd $MAIN_PWD
 sudo cp ./config/xorg/xinitrc /etc/X11/xinit/xinitrc
 sudo cp ./config/xorg/xprofile ~/.xprofile
-sleep 1
+sleep 2
 echo "[+] Xorg Configured!"
 # === END(7) === #
 
@@ -194,19 +194,21 @@ banner
 
 # === 8. Qtile Configuration === #
 echo "[*] Configuring Qtile..."
-sleep 1
+sleep 2
 cd $MAIN_PWD
 cp -r ./config/qtile ~/.config/qtile
-sleep 1
+sleep 2
 echo "[+] Qtile Configured!"
 # === END(8) === #
 
+banner
+
 # === 9. Wallpapers === #
 echo "[*] Configuring Wallpapers..."
-sleep 1
+sleep 2
 cd $MAIN_PWD
 sudo cp -r ./config/wallpapers /usr/share/wallpapers
-sleep 1
+sleep 2
 echo "[+] Wallpapers Configured!"
 # === END(9) === #
 
