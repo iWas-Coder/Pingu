@@ -23,8 +23,6 @@ go-tools
 locate
 xorg
 xorg-server
-lightdm
-lightdm-webkit2-greeter
 qtile
 rofi
 kitty
