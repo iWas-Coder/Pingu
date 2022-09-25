@@ -113,7 +113,7 @@ for pkg in $(cat ./assets/pkgs/aur_pkgs); do
   yay -S --noconfirm --answerdiff=None $pkg
   sleep 2
 done
-yay -Sc
+yay -Sc --noconfirm
 # === END(4) === #
 
 banner
