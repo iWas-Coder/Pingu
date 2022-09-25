@@ -14,6 +14,8 @@ banner () {
 }
 banner
 
+MAIN_PWD=$(pwd)
+
 # === Ctrl + C === #
 ctrl_c () {
   echo -e "\n[-] Process cancelled by user. Exiting...\n"
@@ -110,6 +112,7 @@ cd /home/$USER
 echo "[*] Compiling and Installing Bento4 Tools..."
 sleep 2
 # Bento4 Tools
+cd ~/content
 git clone --quiet "https://github.com/axiomatic-systems/Bento4"
 cd Bento4
 mkdir build
@@ -132,6 +135,7 @@ banner
 echo "[*] Compiling and Installing Logiops..."
 sleep 2
 # logiops (Unofficial Logiech Options)
+cd ~/content
 git clone --quiet "https://github.com/PixlOne/logiops"
 cd logiops
 mkdir build
@@ -147,10 +151,27 @@ rm -rf logiops
 banner
 
 # === 6. ZSH Configuration === #
+cd $MAIN_PWD
+sudo cp ./config/zsh/zshrc ~/.zshrc
+sudo ln -s ~/.zshrc /root/.zshrc
+
+sudo mkdir /usr/share/custom-zsh
+sudo git clone "https://github.com/romkatv/powerlevel10k" /usr/share/custom-zsh/powerlevel10k
+sudo cp ./config/zsh/p10k.zsh /usr/share/custom-zsh/.p10k.zsh
+sudo git clone "https://github.com/zsh-users/zsh-syntax-highlighting" /usr/share/custom-zsh/zsh-syntax-highlighting
+sudo git clone "https://github.com/zsh-users/zsh-autosuggestions" /usr/share/custom-zsh/zsh-autosuggestions
+sudo mkdir /usr/share/custom-zsh/zsh-sudo
+cd !$
+sudo wget "https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/plugins/sudo/sudo.plugin.zsh"
 # === END(6) === #
 
 # === 7. Xorg Configuration === #
+cd $MAIN_PWD
+sudo cp ./config/xorg/xinitrc /etc/X11/xinit/xinitrc
+sudo cp ./config/xorg/xprofile ~/.xprofile
 # === END(7) === #
 
 # === 8. Qtile Configuration === #
+cd $MAIN_PWD
+cp -r ./config/qtile ~/.config/qtile
 # === END(8) === #
