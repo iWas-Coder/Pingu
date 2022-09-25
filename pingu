@@ -57,8 +57,6 @@ sleep 1
 echo -e "[+] Theme copied correctly!\n"
 sleep 2
 
-GRUB_CMDLINE_LINUX="root=/dev/mapper/<ROOT_NAME> rd.luks.name=<ROOT_UUID>=<ROOT_NAME> rd.luks.name=<HOME_UUID>=<HOME_NAME> rd.luks.options=timeout=0 rootflags=x-systemd.device-timeout=0"
-
 echo "[*] Showing disks and partitions..."
 echo "-----------------------------------"
 lsblk -np --output NAME,MOUNTPOINT
@@ -78,14 +76,10 @@ echo "[+] $HOME_PARTITION -> UUID: $HOME_UUID"
 
 sleep 2
   
-GRUB_CMDLINE_LINUX=$(echo "$GRUB_CMDLINE_LINUX" | sed "s/<ROOT_NAME>/$ROOT_NAME/g" | sed "s/<ROOT_UUID>/$ROOT_UUID/" | sed "s/<HOME_NAME>/$HOME_NAME/" | sed "s/<HOME_UUID>/$HOME_UUID/")
-
-old_str="GRUB_CMDLINE_LINUX=\"\""
-new_str="GRUB_CMDLINE_LINUX=\"$GRUB_CMDLINE_LINUX\""
-
-sleep 2
-
-sudo sed -i "s/$old_str/$new_str/" /etc/default/grub
+sudo sed -i "s/<ROOT_NAME>/$ROOT_NAME/g" /etc/default/grub
+sudo sed -i "s/<ROOT_UUID>/$ROOT_UUID/" /etc/default/grub
+sudo sed -i "s/<HOME_NAME>/$HOME_NAME/" /etc/default/grub
+sudo sed -i "s/<HOME_UUID>/$HOME_UUID/" /etc/default/grub
 
 sleep 2
 
