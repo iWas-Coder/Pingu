@@ -193,12 +193,12 @@ echo "[+] Qtile Configured!"
 # === END(8) === #
 
 # === 9. Wallpaper === #
-echo "[*] Configuring Qtile..."
+echo "[*] Configuring Wallpaper..."
 sleep 1
 cd $MAIN_PWD
 sudo cp -r ./config/wallpaper /usr/share/wallpaper
 sleep 1
-echo "[+] Qtile Configured!"
+echo "[+] Wallpaper Configured!"
 # === END(9) === #
 
 banner
