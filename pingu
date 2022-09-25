@@ -79,10 +79,15 @@ sleep 2
   
 GRUB_CMDLINE_LINUX=$(echo "$GRUB_CMDLINE_LINUX" | sed "s/<ROOT_NAME>/$ROOT_NAME/g" | sed "s/<ROOT_UUID>/$ROOT_UUID/" | sed "s/<HOME_NAME>/$HOME_NAME/" | sed "s/<HOME_UUID>/$HOME_UUID/")
 
-echo "$GRUB_CMDLINE_LINUX"
+old_str="GRUB_CMDLINE_LINUX="""
+new_str="GRUB_CMDLINE_LINUX="$GRUB_CMDLINE_LINUX""
+
+echo "$old_str"
+sleep 5
+echo "$new_str"
 sleep 60
 
-sudo sed -i "s/GRUB_CMDLINE_LINUX=\"\"/GRUB_CMDLINE_LINUX=\"$GRUB_CMDLINE_LINUX\"/" /etc/default/grub
+sudo sed -i "s/$old_str/$new_str/" /etc/default/grub
 
 sleep 2
 
