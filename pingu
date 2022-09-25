@@ -151,6 +151,8 @@ rm -rf logiops
 banner
 
 # === 6. ZSH Configuration === #
+echo "[*] Configuring ZSH..."
+sleep 1
 cd $MAIN_PWD
 sudo cp ./config/zsh/zshrc ~/.zshrc
 sudo ln -s ~/.zshrc /root/.zshrc
@@ -163,15 +165,34 @@ sudo git clone "https://github.com/zsh-users/zsh-autosuggestions" /usr/share/cus
 sudo mkdir /usr/share/custom-zsh/zsh-sudo
 cd !$
 sudo wget "https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/plugins/sudo/sudo.plugin.zsh"
+sleep 1
+echo "[+] ZSH Configured!"
 # === END(6) === #
 
+banner
+
 # === 7. Xorg Configuration === #
+echo "[*] Configuring Xorg..."
+sleep 1
 cd $MAIN_PWD
 sudo cp ./config/xorg/xinitrc /etc/X11/xinit/xinitrc
 sudo cp ./config/xorg/xprofile ~/.xprofile
+sleep 1
+echo "[+] Xorg Configured!"
 # === END(7) === #
 
+banner
+
 # === 8. Qtile Configuration === #
+echo "[*] Configuring Qtile..."
+sleep 1
 cd $MAIN_PWD
 cp -r ./config/qtile ~/.config/qtile
+sleep 1
+echo "[+] Qtile Configured!"
 # === END(8) === #
+
+banner
+
+echo "[+] Pingu Desktop Environment Fully Installed! :)"
+tput cnorm; exit 0
