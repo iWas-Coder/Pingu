@@ -24,36 +24,29 @@ trap ctrl_c INT
 # === Hiding cursor === #
 tput civis
 
-# === 0. Sudo privileges === #
+# === 1. Sudo privileges === #
+echo "[!] Checking current user..."
+sleep 2
+if [ "$EUID" -eq 0 ]; then
+  echo "[-] Please do not run as ROOT."
+  tput cnorm; exit 1
+fi
+echo "[+] Hello, $USER :D"
+sleep 2
 echo "[!] Checking if current session has sudo privileges..."
 sudo pwd > /dev/null 2>&1
 echo -e "[+] Sudo privileges obtained! Thank you <3\n"
-# === END(0) === #
-
-banner
-
-# === 1. User === #
-unset USER
-while [ -z "$USER" ]; do
-  read -p "[?] What's your username: " $USER
-done
 # === END(1) === #
 
 banner
 
 # === 2. GRUB Configuration === #
-echo "[*] Downloading GRUB Custom Configuration file..."
-curl -s -X GET "https://raw.githubusercontent.com/iWas-Coder/Pingu/main/config/grub/grub" > /etc/default/grub
+echo "[*] Creating GRUB Custom Configuration file..."
+cp ./config/grub/grub /etc/default/grub
 sleep 1
 echo -e "[+] File written to: /etc/default/grub\n"
 
-echo "[?] Are you using LUKS encryption?"
-select option in "YES" "NO"; do
-  case $option in
-    YES ) LUKS=true; break;;
-    NO ) LUKS=false; break;;
-  esac
-done
+GRUB_CMDLINE_LINUX="root=/dev/mapper/<ROOT_NAME> rd.luks.name=<ROOT_UUID>=<ROOT_NAME> rd.luks.name=<HOME_UUID>=<HOME_NAME> rd.luks.options=timeout=0 rootflags=x-systemd.device-timeout=0"
 
 sleep 2
 
@@ -62,25 +55,23 @@ echo "-----------------------------------"
 lsblk -np --output NAME,MOUNTPOINT
 echo "-----------------------------------"
 
-if [ "$LUKS" = true ]; then
-  echo "[*] Modifying GRUB Configuration to decrypt partitions during boot..."
+read -p "[?] Encrypted ROOT partition path (with /dev/...): " ROOT_PARTITION
+read -p "[?] Decrypted ROOT partition name (e.g. cryptroot): " ROOT_NAME
+read -p "[?] Encrypted HOME partition path (with /dev/...): " HOME_PARTITION
+read -p "[?] Decrypted HOME partition name (e.g. cryptroot): " HOME_NAME
 
-  unset ROOT_PARTITION
-  while [ -z "$ROOT_PARTITION" ]; do
-    read -p "[?] Encrypted ROOT partition (with /dev path): " $ROOT_PARTITION
-  done
-  unset HOME_PARTITION
-  while [ -z "$HOME_PARTITION" ]; do
-    read -p "[?] Encrypted HOME partition (with /dev path): " $HOME_PARTITION
-  done
+ROOT_UUID=$(blkid $ROOT_PARTITION | grep -oP '(?<= UUID=").*?(?=")')
+echo "[+] $ROOT_PARTITION -> UUID: $ROOT_UUID"
+HOME_UUID=$(blkid $HOME_PARTITION | grep -oP '(?<= UUID=").*?(?=")')
+echo "[+] $HOME_PARTITION -> UUID: $HOME_UUID"
   
-  ROOT_UUID=$(blkid $ROOT_PARTITION | grep -oP '(?<= UUID=").*?(?=")')
-  echo "[+] $ROOT_PARTITION UUID: $ROOT_UUID"
-  HOME_UUID=$(blkid $HOME_PARTITION | grep -oP '(?<= UUID=").*?(?=")')
-  echo "[+] $HOME_PARTITION UUID: $HOME_UUID"
-  
-  
-fi
+GRUB_CMDLINE_LINUX=$(echo "$GRUB_CMDLINE_LINUX" | sed "s/<ROOT_NAME>/$ROOT_NAME/g" | sed "s/<ROOT_UUID>/$ROOT_UUID/" | sed "s/<HOME_NAME>/$HOME_NAME/" | sed "s/<HOME_UUID>/$HOME_UUID/")
+
+sed -i "s/GRUB_CMDLINE_LINUX=\"\"/GRUB_CMDLINE_LINUX=\"$GRUB_CMDLINE_LINUX\"/" /etc/default/grub
+
+sleep 2
+
+echo "[+] GRUB Configured!"
 # === END(2) === #
 
 banner
@@ -89,7 +80,7 @@ banner
 for pkg in $(cat ./assets/pkgs/official_pkgs); do
   sleep 1
   echo "[*] Installing official package '$pkg'..."
-  # pacman -S --noconfirm $pkg
+  pacman -S --noconfirm $pkg
   clear
 done
 # === END(3) === #
@@ -100,7 +91,7 @@ banner
 for pkg in $(cat ./assets/pkgs/aur_pkgs); do
   sleep 1
   echo "[*] Installing AUR package '$pkg'..."
-  # yay -S --noconfirm --answerdiff=None $pkg
+  yay -S --noconfirm --answerdiff=None $pkg
   clear
 done
 # === END(4) === #
@@ -155,8 +146,5 @@ banner
 # === 7. Xorg Configuration === #
 # === END(7) === #
 
-# === 8. LightDM Configuration === #
+# === 8. Qtile Configuration === #
 # === END(8) === #
-
-# === 9. Qtile Configuration === #
-# === END(9) === #
