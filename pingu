@@ -81,6 +81,11 @@ sed -i "s/GRUB_CMDLINE_LINUX=\"\"/GRUB_CMDLINE_LINUX=\"$GRUB_CMDLINE_LINUX\"/" /
 
 sleep 2
 
+echo "[*] Generating GRUB Configuration..."
+sudo grub-mkconfig -o /boot/grub/grub.cfg
+
+sleep 2
+
 echo "[+] GRUB Configured!"
 # === END(2) === #
 
