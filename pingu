@@ -131,10 +131,11 @@ mkdir build
 cd build
 cmake -DCMAKE_BUILD_TYPE=Release ..
 make
-make install
+sudo make install
 cd ../..
 rm -rf Bento4
 
+sleep 2
 banner
 
 echo "[*] Compiling and Installing GEF for GDB..."
@@ -154,12 +155,13 @@ mkdir build
 cd build
 cmake ..
 make
-make install
+sudo make install
 systemctl enable --now logid
 cd ../..
 rm -rf logiops
 # === END(5) === #
 
+sleep 2
 banner
 
 # === 6. ZSH Configuration === #
@@ -181,6 +183,9 @@ sleep 2
 echo "[+] ZSH Configured!"
 # === END(6) === #
 
+sleep 2
+banner
+
 # === 7. Xorg Configuration === #
 echo "[*] Configuring Xorg..."
 sleep 2
@@ -191,6 +196,8 @@ sleep 2
 echo "[+] Xorg Configured!"
 # === END(7) === #
 
+sleep 2
+
 # === 8. Qtile Configuration === #
 echo "[*] Configuring Qtile..."
 sleep 2
@@ -200,6 +207,8 @@ sleep 2
 echo "[+] Qtile Configured!"
 # === END(8) === #
 
+sleep 2
+
 # === 9. Wallpapers === #
 echo "[*] Configuring Wallpapers..."
 sleep 2
@@ -208,6 +217,8 @@ sudo cp -r ./config/wallpapers /usr/share/wallpapers
 sleep 2
 echo "[+] Wallpapers Configured!"
 # === END(9) === #
+
+banner
 
 echo -e "\n[+] Pingu Desktop Environment Fully Installed! :)\n"
 tput cnorm; exit 0
