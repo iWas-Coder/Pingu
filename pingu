@@ -36,24 +36,25 @@ sleep 2
 echo "[!] Checking if current session has sudo privileges..."
 sudo pwd > /dev/null 2>&1
 echo -e "[+] Sudo privileges obtained! Thank you <3\n"
+sleep 2
 # === END(1) === #
 
 banner
 
 # === 2. GRUB Configuration === #
 echo "[*] Creating GRUB Custom Configuration file..."
-cp ./config/grub/grub /etc/default/grub
+sudo cp ./config/grub/grub /etc/default/grub
 sleep 1
 echo "[+] File written to: /etc/default/grub"
+sleep 2
 
 echo "[*] Setting GRUB Custom theme..."
-cp -r ./config/grub/CyberRe /boot/grub/themes/CyberRe
+sudo cp -r ./config/grub/CyberRe /boot/grub/themes/CyberRe
 sleep 1
 echo -e "[+] Theme copied correctly!\n"
+sleep 2
 
 GRUB_CMDLINE_LINUX="root=/dev/mapper/<ROOT_NAME> rd.luks.name=<ROOT_UUID>=<ROOT_NAME> rd.luks.name=<HOME_UUID>=<HOME_NAME> rd.luks.options=timeout=0 rootflags=x-systemd.device-timeout=0"
-
-sleep 2
 
 echo "[*] Showing disks and partitions..."
 echo "-----------------------------------"
