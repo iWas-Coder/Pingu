@@ -1,4 +1,4 @@
-# Pingu Desktop Environment: The Shortcuts Guide
+# Pingu DE: The Shortcuts Guide
 
 
 ## Qtile
