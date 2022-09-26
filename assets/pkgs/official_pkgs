@@ -44,6 +44,7 @@ chromium
 pipewire
 pipewire-pulse
 pamixer
+pavucontrol
 cmus
 ffmpeg
 vlc
