@@ -6,6 +6,6 @@ Check the [full documentation (wiki)](https://github.com/iWas-Coder/Pingu/wiki) 
 
 ![Pingu Title](https://raw.githubusercontent.com/iWas-Coder/Pingu/main/assets/pingu-title.jpg)
 
-**I Use Arch BTW :D**
+**I Use Arch BTW <3**
 
 _(c) iWas. All rights reserved._
