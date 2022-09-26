@@ -1,265 +1,44 @@
 #!/bin/bash
 
-# === Banner === #
-banner () {
-  clear
-  echo "    ____  _                  "
-  echo "   / __ \(_)___  ____ ___  __"
-  echo "  / /_/ / / __ \/ __ \`/ / / /";
-  echo " / ____/ / / / / /_/ / /_/ /    (by iWas <3)"
-  echo "/_/   /_/_/ /_/\__, /\__,_/  "
-  echo "              /____/         "
-  echo "---------------------------------------------"
-  sleep 2
-}
-banner
-
+# === Global variables === #
 MAIN_PWD=$(pwd)
-
-# === Ctrl + C === #
-ctrl_c () {
-  echo -e "\n[-] Process cancelled by user. Exiting...\n"
-  tput cnorm; exit 1
-}
-trap ctrl_c INT
+USER_HOME="/home/$USER"
 
 # === Hiding cursor === #
 tput civis
 
-# === 1. Sudo privileges === #
-echo "[!] Checking current user..."
-sleep 2
-if [ "$EUID" -eq 0 ]; then
-  echo "[-] Please do not run as ROOT."
-  tput cnorm; exit 1
-fi
-echo "[+] Hello, $USER :D"
-sleep 2
-echo "[!] Checking if current session has sudo privileges..."
-sleep 2
-sudo pwd > /dev/null 2>&1
-echo -e "[+] Sudo privileges obtained! Thank you <3\n"
-sleep 2
-# === END(1) === #
+# === Banner === #
+source script/00-banner.sh
 
-banner
+# === Ctrl + C === #
+source script/05-ctrl_c.sh
 
-# === 2. GRUB Configuration === #
-echo "[*] Creating GRUB Custom Configuration file..."
-sudo cp ./config/grub/grub /etc/default/grub
-sleep 1
-echo "[+] File written to: /etc/default/grub"
-sleep 2
+# === Sudo privileges === #
+source script/10-privileges.sh
 
-echo "[*] Setting GRUB Custom theme..."
-sudo cp -r ./config/grub/CyberRe /boot/grub/themes/CyberRe
-sleep 1
-echo -e "[+] Theme copied correctly!\n"
-sleep 2
+# === GRUB Configuration === #
+source script/20-grub.sh
 
-echo "[*] Showing disks and partitions..."
-echo "-----------------------------------"
-lsblk -np --output NAME,MOUNTPOINT
-echo "-----------------------------------"
+# === Official Packages Installation === #
+source script/30-pacman.sh
 
-read -p "[?] Encrypted ROOT partition path (with /dev/...): " ROOT_PARTITION
-read -p "[?] Decrypted ROOT partition name (e.g. cryptroot): " ROOT_NAME
-read -p "[?] Encrypted HOME partition path (with /dev/...): " HOME_PARTITION
-read -p "[?] Decrypted HOME partition name (e.g. crypthome): " HOME_NAME
+# === AUR Packages Installation === #
+source script/40-aur.sh
 
-banner
+# === From Source Programs Installation === #
+source script/50-bento4.sh
+source script/53-gef.sh
+source script/56-logiops.sh
 
-ROOT_UUID=$(sudo blkid $ROOT_PARTITION | grep -oP '(?<= UUID=").*?(?=")')
-echo "[+] $ROOT_PARTITION -> UUID: $ROOT_UUID"
-HOME_UUID=$(sudo blkid $HOME_PARTITION | grep -oP '(?<= UUID=").*?(?=")')
-echo "[+] $HOME_PARTITION -> UUID: $HOME_UUID"
+# === Dotfiles Configuration === #
+source script/60-zsh.sh
+source script/61-xorg.sh
+source script/62-qtile.sh
+source script/63-kitty.sh
+source script/64-picom.sh
+source script/65-ranger.sh
+source script/66-rofi.sh
+source script/67-wallpapers.sh
 
-sleep 2
-  
-sudo sed -i "s/<ROOT_NAME>/$ROOT_NAME/g" /etc/default/grub
-sudo sed -i "s/<ROOT_UUID>/$ROOT_UUID/" /etc/default/grub
-sudo sed -i "s/<HOME_NAME>/$HOME_NAME/" /etc/default/grub
-sudo sed -i "s/<HOME_UUID>/$HOME_UUID/" /etc/default/grub
-
-sleep 2
-
-echo "[*] Generating GRUB Configuration..."
-sudo grub-mkconfig -o /boot/grub/grub.cfg
-
-sleep 2
-
-echo "[+] GRUB Configured!"
-# === END(2) === #
-
-banner
-
-# === 3. Official Packages Installation === #
-for pkg in $(cat ./assets/pkgs/official_pkgs); do
-  banner
-  echo "[*] Installing official package '$pkg'..."
-  sleep 2
-  sudo pacman -S --noconfirm $pkg
-  sleep 2
-done
-# === END(3) === #
-
-banner
-
-# === 4. AUR Packages Installation === #
-for pkg in $(cat ./assets/pkgs/aur_pkgs); do
-  banner
-  echo "[*] Installing AUR package '$pkg'..."
-  sleep 2
-  yay -S --noconfirm --answerdiff=None $pkg
-  sleep 2
-done
-yay -Sc --noconfirm
-# === END(4) === #
-
-banner
-
-# === 5. From Source Programs Installation === #
-cd /home/$USER
-
-echo "[*] Compiling and Installing Bento4 Tools..."
-sleep 2
-# Bento4 Tools
-cd ~/content
-git clone "https://github.com/axiomatic-systems/Bento4"
-cd Bento4
-mkdir build
-cd build
-cmake -DCMAKE_BUILD_TYPE=Release ..
-make
-sudo make install
-cd ../..
-rm -rf Bento4
-
-sleep 2
-banner
-
-echo "[*] Compiling and Installing GEF for GDB..."
-sleep 2
-# GEF (GDB Enhanced Features)
-curl -fsSL "https://gef.blah.cat/sh" | bash
-
-banner
-
-echo "[*] Compiling and Installing Logiops..."
-sleep 2
-# logiops (Unofficial Logiech Options)
-cd ~/content
-git clone "https://github.com/PixlOne/logiops"
-cd logiops
-mkdir build
-cd build
-cmake ..
-make
-sudo make install
-systemctl enable --now logid
-cd ../..
-rm -rf logiops
-# === END(5) === #
-
-sleep 2
-banner
-
-# === 6. ZSH Configuration === #
-echo "[*] Configuring ZSH..."
-sleep 2
-cd $MAIN_PWD
-sudo cp ./config/zsh/zshrc ~/.zshrc
-sudo ln -sf ~/.zshrc /root/.zshrc
-
-sudo mkdir /usr/share/custom-zsh
-sudo git clone "https://github.com/romkatv/powerlevel10k" /usr/share/custom-zsh/powerlevel10k
-sudo cp ./config/zsh/p10k.zsh /usr/share/custom-zsh/.p10k.zsh
-sudo git clone "https://github.com/zsh-users/zsh-syntax-highlighting" /usr/share/custom-zsh/zsh-syntax-highlighting
-sudo git clone "https://github.com/zsh-users/zsh-autosuggestions" /usr/share/custom-zsh/zsh-autosuggestions
-sudo mkdir /usr/share/custom-zsh/zsh-sudo
-cd /usr/share/custom-zsh/zsh-sudo
-sudo wget "https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/plugins/sudo/sudo.plugin.zsh"
-sleep 2
-echo "[+] ZSH Configured!"
-# === END(6) === #
-
-sleep 2
-banner
-
-# === 7. Xorg Configuration === #
-echo "[*] Configuring Xorg..."
-sleep 2
-cd $MAIN_PWD
-sudo cp ./config/xorg/xinitrc /etc/X11/xinit/xinitrc
-sudo cp ./config/xorg/xprofile ~/.xprofile
-sleep 2
-echo "[+] Xorg Configured!"
-# === END(7) === #
-
-sleep 2
-
-# === 8. Qtile Configuration === #
-echo "[*] Configuring Qtile..."
-sleep 2
-cd $MAIN_PWD
-cp -r ./config/qtile ~/.config/qtile
-sleep 2
-echo "[+] Qtile Configured!"
-# === END(8) === #
-
-sleep 2
-
-# === 9. Kitty Configuration === #
-echo "[*] Configuring Kitty..."
-sleep 2
-cd $MAIN_PWD
-cp -r ./config/kitty ~/.config/kitty
-sleep 2
-echo "[+] Kitty Configured!"
-# === END(9) === #
-
-# === 10. Picom Configuration === #
-echo "[*] Configuring Picom..."
-sleep 2
-cd $MAIN_PWD
-cp -r ./config/picom ~/.config/picom
-sleep 2
-echo "[+] Picom Configured!"
-# === END(10) === #
-
-# === 11. Ranger Configuration === #
-echo "[*] Configuring Ranger..."
-sleep 2
-cd $MAIN_PWD
-cp -r ./config/ranger ~/.config/ranger
-git clone "https://github.com/alexanderjeurissen/ranger_devicons" ~/.config/ranger/plugins
-sudo ln -s ~/.config/ranger /root/.config/ranger
-sleep 2
-echo "[+] Ranger Configured!"
-# === END(11) === #
-
-banner
-
-# === 12. Rofi Configuration === #
-echo "[*] Configuring Rofi..."
-sleep 2
-cd $MAIN_PWD
-cp -r ./config/rofi ~/.config/rofi
-sudo mv ~/.config/rofi/onedark.rasi /usr/share/rofi/themes
-sleep 2
-echo "[+] Rofi Configured!"
-# === END(12) === #
-
-# === 13. Wallpapers === #
-echo "[*] Configuring Wallpapers..."
-sleep 2
-cd $MAIN_PWD
-sudo cp -r ./config/wallpapers /usr/share/wallpapers
-sleep 2
-echo "[+] Wallpapers Configured!"
-# === END(13) === #
-
-banner
-
-echo -e "\n[+] Pingu Desktop Environment Fully Installed! :)\n"
-tput cnorm; exit 0
+# === End === #
+source script/70-end.sh
