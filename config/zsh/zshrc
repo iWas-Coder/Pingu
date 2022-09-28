@@ -71,6 +71,7 @@ alias icat='kitty +kitten icat'
 alias vi='nvim'
 alias vim='nvim'
 alias gdb='LC_ALL=en.US.UTF-8 gdb'
+alias ssh='kitty +kitten ssh'
 # Custom
 # alias (...)
 
