@@ -23,6 +23,7 @@ gdb
 libevdev
 libconfig
 pkgconf
+dpkg
 ufw
 whois
 aria2
