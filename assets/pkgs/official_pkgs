@@ -33,8 +33,6 @@ xorg-server
 xorg-xinit
 grub-customizer
 qtile
-lxappearance
-qt5ct
 feh
 rofi
 kitty
@@ -50,3 +48,4 @@ ffmpeg
 vlc
 inetutils
 discord
+lm_sensors
