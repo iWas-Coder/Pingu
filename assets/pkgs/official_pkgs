@@ -25,7 +25,6 @@ pkgconf
 ufw
 whois
 aria2
-yt-dlp
 go
 go-tools
 locate
