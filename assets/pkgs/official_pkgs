@@ -15,6 +15,7 @@ poppler
 jq
 upx
 p7zip
+xz
 papirus-icon-theme
 neofetch
 cmake
