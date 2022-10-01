@@ -3,7 +3,7 @@
 GRUB_DEFAULT=0
 GRUB_TIMEOUT=-1
 GRUB_DISTRIBUTOR="Arch"
-GRUB_CMDLINE_LINUX_DEFAULT="loglevel=3"
+GRUB_CMDLINE_LINUX_DEFAULT="loglevel=3 mce=off"
 GRUB_CMDLINE_LINUX="root=/dev/mapper/<ROOT_NAME> rd.luks.name=<ROOT_UUID>=<ROOT_NAME> rd.luks.name=<HOME_UUID>=<HOME_NAME> rd.luks.options=timeout=0 rootflags=x-systemd.device-timeout=0"
 
 GRUB_PRELOAD_MODULES="part_gpt part_msdos"
