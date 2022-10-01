@@ -24,6 +24,7 @@ libconfig
 pkgconf
 ufw
 whois
+tree
 aria2
 go
 go-tools
@@ -50,3 +51,4 @@ ffmpeg
 vlc
 inetutils
 discord
+obs-studio
