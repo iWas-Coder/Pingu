@@ -15,6 +15,7 @@ poppler
 jq
 upx
 p7zip
+xz
 papirus-icon-theme
 neofetch
 cmake
@@ -22,6 +23,7 @@ gdb
 libevdev
 libconfig
 pkgconf
+dpkg
 ufw
 whois
 tree
@@ -34,8 +36,6 @@ xorg-server
 xorg-xinit
 grub-customizer
 qtile
-lxappearance
-qt5ct
 feh
 rofi
 kitty
@@ -51,4 +51,8 @@ ffmpeg
 vlc
 inetutils
 discord
+<<<<<<< HEAD
 obs-studio
+=======
+lm_sensors
+>>>>>>> 9f6ad183d77b2ef2a4333634fa7df160b8c33ee5

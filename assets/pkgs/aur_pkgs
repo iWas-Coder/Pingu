@@ -8,3 +8,5 @@ nvidia-vaapi-driver-git
 lib32-libvdpau-va-gl
 lib32-libva1-compat
 chatterino2-7tv-git
+zenpower3-dkms
+zenmonitor3-git
