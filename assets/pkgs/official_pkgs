@@ -24,7 +24,6 @@ libevdev
 libconfig
 pkgconf
 dpkg
-ufw
 whois
 tree
 aria2
@@ -44,11 +43,10 @@ ranger
 chromium
 pipewire
 pipewire-pulse
-pamixer
 pavucontrol
-cmus
+sox
 ffmpeg
-vlc
+mpv
 inetutils
 discord
 obs-studio
