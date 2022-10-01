@@ -39,6 +39,7 @@ source script/64-picom.sh
 source script/65-ranger.sh
 source script/66-rofi.sh
 source script/67-wallpapers.sh
+source script/68-chromium.sh
 
 # === End === #
 source script/70-end.sh
