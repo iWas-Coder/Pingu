@@ -67,3 +67,8 @@ Change tab focus ........... `ctrl` + `shift` + `alt` + `arrow-keys`
 Resize window .............. `ctrl` + `shift` + `r`
 
 Zoom to window ............. `ctrl` + `shift` + `z`
+
+### Mouse selection
+
+Standard selection ......... `left-mouse`
+Rectangle selection ........ `shift` + `left-mouse`
