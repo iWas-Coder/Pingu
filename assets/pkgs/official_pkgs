@@ -43,6 +43,10 @@ kitty
 neovim
 ranger
 chromium
+noto-fonts
+noto-fonts-cjk
+noto-fonts-emoji
+noto-fonts-extra
 pipewire
 pipewire-pulse
 pavucontrol
