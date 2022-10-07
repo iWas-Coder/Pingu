@@ -4,6 +4,7 @@ lib32-nvidia-utils
 nvidia-settings
 vulkan-icd-loader
 lib32-vulkan-icd-loader
+cuda
 moreutils
 python3
 python-pip
