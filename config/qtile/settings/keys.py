@@ -16,6 +16,8 @@ browser = "chromium"
 browser_incognito = "chromium --incognito"
 apps = "rofi -show drun"
 apps_opened = "rofi -show"
+clipboard_history = "rofi -modi 'clipboard:greenclip print' -show clipboard -run-command '{cmd}'"
+screenshot = "flameshot gui"
 
 
 # === Keys === #
@@ -27,6 +29,12 @@ keys = [
     # Browser (chromium)
     Key([ctrl], "b", lazy.spawn(browser)),
     Key([ctrl, "shift"], "b", lazy.spawn(browser_incognito)),
+    
+    # Screenshot (flameshot)
+    Key([mod, "shift"], "s", lazy.spawn(screenshot)),
+    
+    # Clipboard history (greenclip)
+    Key([mod], "v", lazy.spawn(clipboard_history)),
 
     # New window (terminal)
     Key([ctrl], "Return", lazy.spawn(terminal)),
