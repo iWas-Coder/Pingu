@@ -11,6 +11,12 @@ Opened apps ................ `ctrl` + `shift` + `m`
 
 Browser .................... `ctrl` + `b`
 
+Browser in incognito ....... `ctrl` + `shift` + `b`
+
+Screenshot ................. `mod` + `shift` + `s`
+
+Clipboard history .......... `mod` + `v`
+
 ### Open/Close
 
 New window (kitty) ......... `ctrl` + `enter`
