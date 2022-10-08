@@ -60,3 +60,5 @@ lm_sensors
 pacman-contrib
 xclip
 oath-toolkit
+i3lock
+scrot
