@@ -1,2 +1,8 @@
+# === Start compositor === #
 picom &
+
+# === Set wallpapers === #
 feh --bg-fill /usr/share/wallpapers/wallpaper_1 --bg-fill /usr/share/wallpapers/wallpaper_2 &
+
+# === Start clipboard history === #
+greenclip daemon &
