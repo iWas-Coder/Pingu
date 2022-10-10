@@ -18,6 +18,7 @@ apps = "rofi -show drun"
 apps_opened = "rofi -show"
 clipboard_history = "rofi -modi 'clipboard:greenclip print' -show clipboard -run-command '{cmd}'"
 screenshot = "flameshot gui"
+lockscreen = "lock"
 
 
 # === Keys === #
@@ -35,6 +36,9 @@ keys = [
     
     # Clipboard history (greenclip)
     Key([mod], "v", lazy.spawn(clipboard_history)),
+    
+    # Lockscreen
+    Key([mod], "l", lazy.spawn(clipboard_history)),
 
     # New window (terminal)
     Key([ctrl], "Return", lazy.spawn(terminal)),
