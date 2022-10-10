@@ -28,7 +28,6 @@ pkgconf
 dpkg
 whois
 tree
-aria2
 go
 go-tools
 locate
@@ -62,3 +61,4 @@ xclip
 oath-toolkit
 i3lock
 scrot
+strace
