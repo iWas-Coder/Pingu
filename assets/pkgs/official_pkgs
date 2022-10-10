@@ -54,7 +54,6 @@ ffmpeg
 mpv
 inetutils
 discord
-obs-studio
 lm_sensors
 pacman-contrib
 xclip
