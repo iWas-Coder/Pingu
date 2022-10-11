@@ -9,7 +9,7 @@ scrot $CACHE/base.png
 
 # === Processing the image === #
 # Blurring
-convert $CACHE/base.png -blur 0x25 $CACHE/blurred.png
+convert $CACHE/base.png -blur 0x8 $CACHE/blurred.png
 # Linux overlay (main monitor)
 composite -gravity center -geometry +550+535 $ASSETS/linux.png $CACHE/blurred.png $CACHE/overlayed_1.png
 # GNU Savannah overlay (second monitor)
