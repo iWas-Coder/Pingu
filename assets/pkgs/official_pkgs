@@ -31,6 +31,7 @@ tree
 go
 go-tools
 locate
+htop
 xorg
 xorg-server
 xorg-xinit
