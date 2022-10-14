@@ -2,7 +2,7 @@ picom-git
 nerd-fonts-jetbrains-mono
 gtk-theme-material-black
 breeze-purple-cursor-theme
-nvidia-vaapi-driver-git
+libva-vdpau-driver-vp9-git
 lib32-libvdpau-va-gl
 lib32-libva1-compat
 steghide
