@@ -6,6 +6,10 @@ vulkan-icd-loader
 lib32-vulkan-icd-loader
 cuda
 moreutils
+exfatprogs
+dosfstools
+mtools
+ntfs-3g
 python3
 python-pip
 wget
@@ -40,7 +44,6 @@ qtile
 feh
 rofi
 kitty
-neovim
 ranger
 chromium
 noto-fonts
