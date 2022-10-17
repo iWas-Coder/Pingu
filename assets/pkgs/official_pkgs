@@ -10,6 +10,7 @@ exfatprogs
 dosfstools
 mtools
 ntfs-3g
+zsh
 python3
 python-pip
 wget
