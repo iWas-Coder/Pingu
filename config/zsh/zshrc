@@ -15,6 +15,7 @@ setopt histignorealldups sharehistory
 source /usr/share/custom-zsh/powerlevel10k/powerlevel10k.zsh-theme
 # Modules
 [[ -f /usr/share/custom-zsh/.p10k.zsh ]] && source /usr/share/custom-zsh/.p10k.zsh
+[[ -f /usr/share/custom-zsh/.fzf.zsh ]] && source /usr/share/custom-zsh/.fzf.zsh
 
 
 # === ZSH === #
