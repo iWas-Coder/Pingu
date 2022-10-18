@@ -66,3 +66,8 @@ oath-toolkit
 i3lock
 scrot
 strace
+cpio
+elfutils
+bc
+kmod
+xmlto
