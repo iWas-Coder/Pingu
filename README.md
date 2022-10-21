@@ -5,7 +5,7 @@ Custom Desktop Environment for Arch Linux
 ### Documentation
 Check the [full documentation (wiki)](https://github.com/iWas-Coder/Pingu/wiki) to start!
 
-### Cloning
+### Usage
 #### Cloning full repo (`iWas-Coder/Pingu` + `torvalds/linux`)
 ```console
 git clone --recursive "https://github.com/iwas-coder/pingu"
