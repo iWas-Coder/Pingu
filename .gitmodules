@@ -1,3 +1,7 @@
-[submodule "kernel/linux"]
-	path = kernel/linux
+[submodule "src/kernel/linux"]
+	path = src/kernel/linux
 	url = https://github.com/torvalds/linux
+
+[submodule "src/binutils"]
+	path = src/binutils
+	url = https://sourceware.org/git/binutils-gdb
