@@ -10,7 +10,7 @@ Check the [full documentation (wiki)](https://github.com/iWas-Coder/Pingu/wiki) 
 ```console
 git clone --recursive "https://github.com/iwas-coder/pingu"
 ```
-#### Cloning configs only (`iWas-Coder/Pingu`)
+#### Cloning configs only
 ```console
 git clone "https://github.com/iwas-coder/pingu"
 ```
