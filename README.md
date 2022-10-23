@@ -15,7 +15,7 @@ git clone --recursive "https://github.com/iwas-coder/pingu"
 git clone "https://github.com/iwas-coder/pingu"
 ```
 
-![Pingu Title](https://raw.githubusercontent.com/iWas-Coder/Pingu/main/assets/pingu-title.jpg)
+![Pingu Title](https://raw.githubusercontent.com/iWas-Coder/Pingu/main/assets/img/pingu-title.jpg)
 
 **I Use Arch BTW <3**
 
