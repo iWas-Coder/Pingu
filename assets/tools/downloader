@@ -13,7 +13,7 @@ sudo cat /dev/null
 
 if [[ "$1" -eq "0" ]]; then
   echo -e "[0] Downloading Cross-Toolchain PKGs...\n"
-  pushd ../../.. && mkdir tools && cd $_
+  pushd ../../.. &>/dev/null && mkdir tools && cd $_
   for line in $(cat ../pingu/assets/pkgs/lfs/0-cross_toolchain_pkgs); do
     ver=$(echo $line | awk -F',' '{print $2}')
     line=$(echo $line | sed "s/@/$ver/g")
