@@ -15,11 +15,11 @@ if [[ "$1" -eq "0" ]]; then
   echo -e "[0] Downloading Cross-Toolchain PKGs...\n"
   pushd ../../.. && mkdir tools && cd $_
   for line in $(cat ../pkgs/lfs/0-cross_toolchain_pkgs); do
-    ver=$(awk '{print $2}')
-    line=$(sed "s/@/$ver/g")
-    pkg=$(awk '{print $1}')
-    url=$(awk '{print $3}')
-    sig=$(awk '{print $4}')
+    ver=$(echo $line | awk '{print $2}')
+    line=$(echo $line | sed "s/@/$ver/g")
+    pkg=$(echo $line | awk '{print $1}')
+    url=$(echo $line | awk '{print $3}')
+    sig=$(echo $line | awk '{print $4}')
     echo "  WGET      $pkg"
     wget -q "$url"
     wget -q "$sig"
