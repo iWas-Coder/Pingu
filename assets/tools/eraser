@@ -7,8 +7,8 @@ ctrl_c () {
 trap ctrl_c INT
 
 if [[ $(echo $PWD | sed -ne 's/^.*pingu//p') != "/assets/tools" ]]; then
-  echo -e "\n[!] Run from: pingu/assets/tools\n    Usage: ./eraser"
+  echo -e "\n[!] Run from: pingu/assets/tools\n    Usage: ./eraser"; exit 1
 fi
 sudo cat /dev/null
 
-[ -d "/mnt/LFS" ] && shred -zun 10 /mnt/LFS || echo "[!] /mnt/LFS does not exist. Exiting..."
+[ -d "/mnt/LFS" ] && rm -rf /mnt/LFS/* || echo "[!] /mnt/LFS does not exist. Exiting..."
