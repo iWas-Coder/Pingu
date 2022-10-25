@@ -7,7 +7,7 @@ ctrl_c () {
 trap ctrl_c INT
 
 if [[ $(echo $PWD | sed -ne 's/^.*pingu//p') != "/assets/tools" ]]; then
-  echo -e "\n[!] Run from: pingu/assets/tools\n    Usage: ./configure"
+  echo -e "\n[!] Run from: pingu/assets/tools\n    Usage: ./erase"
 fi
 sudo cat /dev/null
 
