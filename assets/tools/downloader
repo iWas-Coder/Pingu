@@ -1,0 +1,12 @@
+#!/bin/bash
+
+ctrl_c () {
+  echo -e "\n[!] Exiting..."
+  exit 1
+}
+trap ctrl_c INT
+
+if [[ $(echo $PWD | sed -ne 's/^.*pingu//p') != "/assets/tools" ]]; then
+  echo -e "\n[!] Run from: pingu/assets/tools\n    Usage: ./downloader"
+fi
+sudo cat /dev/null
