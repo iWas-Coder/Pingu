@@ -1,0 +1,12 @@
+#!/bin/bash
+
+ctrl_c () {
+  echo -e "\n[!] Exiting..."
+  exit 1
+}
+trap ctrl_c INT
+sudo cat /dev/null
+
+cat ../pkgs/arch/0-basic_pkgs | xargs pacman -Sy --noconfirm
+clear
+bash ./version-check
