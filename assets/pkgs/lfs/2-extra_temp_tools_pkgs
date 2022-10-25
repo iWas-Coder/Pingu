@@ -1,0 +1,6 @@
+[0.21] gettext @ https://ftp.gnu.org/gnu/gettext/gettext-@.tar.gz https://ftp.gnu.org/gnu/gettext/gettext-@.tar.gz.sig
+bison
+perl
+python
+texinfo
+util-linux
