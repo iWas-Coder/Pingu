@@ -1,6 +1,6 @@
 [0.21] gettext @ https://ftp.gnu.org/gnu/gettext/gettext-@.tar.gz https://ftp.gnu.org/gnu/gettext/gettext-@.tar.gz.sig
-bison
-perl
-python
-texinfo
-util-linux
+[3.8.2] bison @ https://ftp.gnu.org/gnu/bison/bison-@.tar.gz https://ftp.gnu.org/gnu/bison/bison-@.tar.gz.sig
+[5.37.5] perl @ https://www.cpan.org/src/5.0/perl-@.tar.gz
+[3.11.0] python @ https://www.python.org/ftp/python/@/Python-@.tgz https://www.python.org/ftp/python/@/Python-@.tgz.asc
+[6.8] texinfo @ https://ftp.gnu.org/gnu/texinfo/texinfo-@.tar.gz https://ftp.gnu.org/gnu/texinfo/texinfo-@.tar.gz.sig
+[2.38] util-linux @ https://mirrors.edge.kernel.org/pub/linux/utils/util-linux/v@/util-linux-@.tar.gz https://mirrors.edge.kernel.org/pub/linux/utils/util-linux/v@/util-linux-@.tar.sign
