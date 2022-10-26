@@ -11,7 +11,7 @@ if [[ $(echo $PWD | sed -ne 's/^.*pingu//p') != "/assets/tools" ]]; then
 fi
 sudo cat /dev/null
 
-if [[ "$1" -eq "0" ]]; then
+if [[ "$1" == "0" ]]; then
   echo -e "[0] Downloading Cross-Toolchain PKGs...\n"
   pushd ../../.. &>/dev/null && mkdir tools && cd $_
   for line in $(cat ../pingu/assets/pkgs/lfs/0-cross_toolchain_pkgs); do
