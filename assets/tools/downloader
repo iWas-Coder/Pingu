@@ -19,7 +19,7 @@ if [[ "$1" -eq "0" ]]; then
     line=$(echo $line | sed "s/@/$ver/g")
     pkg=$(echo $line | awk -F',' '{print $1}')
     url=$(echo $line | awk -F',' '{print $3}')
-    sig=$(echo $line | awk -F',' '{print $4}')
+    sig=$(echo $line | awk -F',' '{print $4}' | tr -d '\r')
     echo "  WGET      $pkg"
     wget -q "$url"
     wget -q "$sig"
