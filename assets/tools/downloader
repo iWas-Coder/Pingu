@@ -20,9 +20,15 @@ if [[ "$1" -eq "0" ]]; then
     pkg=$(echo $line | awk -F',' '{print $1}')
     url=$(echo $line | awk -F',' '{print $3}')
     sig=$(echo $line | awk -F',' '{print $4}' | tr -d '\r')
-    echo "  WGET      $pkg"
+    
+    mkdir $pkg && cd $_
+    echo "  GET      $pkg"
     wget -q "$url"
     wget -q "$sig"
+    url_file=$(echo $url | rev | cut -d '/' -f 1 | rev)
+    sig_file=$(echo $sig | rev | cut -d '/' -f 1 | rev)
+    gpg --verify $sig_file $url_file || rm *
+    cd .. && rmdir $pkg 2>/dev/null
   done
   popd &>/dev/null
 fi
