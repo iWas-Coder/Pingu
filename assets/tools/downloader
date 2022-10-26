@@ -27,8 +27,8 @@ if [[ "$1" == "0" ]]; then
     wget -q "$sig"
     url_file=$(echo $url | rev | cut -d '/' -f 1 | rev)
     sig_file=$(echo $sig | rev | cut -d '/' -f 1 | rev)
-    echo $sig | grep gnu && wget -q "https://ftp.gnu.org/gnu/gnu-keyring.gpg"
-    gpg --verify --keyring ./gnu-keyring.gpg $sig_file $url_file || rm *
+    echo $sig | grep gnu && wget -q "https://ftp.gnu.org/gnu/gnu-keyring.gpg" && gpg --verify --keyring ./gnu-keyring.gpg $sig_file $url_file || rm *
+    echo $sig | grep kernel && gpg --locate-keys torvalds@kernel.org gregkh@kernel.org && gzip -d $url_file && gpg --verify $sig_file $url_file
     cd .. && rmdir $pkg 2>/dev/null
   done
   popd &>/dev/null; echo
