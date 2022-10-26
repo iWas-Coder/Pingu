@@ -7,7 +7,7 @@ ctrl_c () {
 trap ctrl_c INT
 
 if [[ $(echo $PWD | sed -ne 's/^.*pingu//p') != "/assets/tools" ]]; then
-  echo -e "\n[!] Run from: pingu/assets/tools\n    Usage: ./downloader"; exit 1
+  echo -e "\n[!] Run from: pingu/assets/tools\n    Usage: ./downloader <STAGE>"; exit 1
 fi
 sudo cat /dev/null
 
@@ -30,5 +30,7 @@ if [[ "$1" == "0" ]]; then
     # gpg --verify $sig_file $url_file || rm *
     # cd .. && rmdir $pkg 2>/dev/null
   done
-  popd &>/dev/null
+  popd &>/dev/null; echo
+else
+  echo -e "[!] Usage: ./downloader <STAGE>"
 fi
