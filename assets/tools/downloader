@@ -12,7 +12,7 @@ fi
 sudo cat /dev/null
 
 if [[ "$1" == "0" ]]; then
-  echo -e "[0] Downloading Cross-Toolchain PKGs...\n"
+  echo -e "[0] Downloading Cross-Toolchain PKGs... (../../../tools)"
   pushd ../../.. &>/dev/null && mkdir tools && cd $_
   for line in $(cat ../pingu/assets/pkgs/lfs/0-cross_toolchain_pkgs); do
     ver=$(echo $line | awk -F',' '{print $2}')
@@ -21,14 +21,15 @@ if [[ "$1" == "0" ]]; then
     url=$(echo $line | awk -F',' '{print $3}')
     sig=$(echo $line | awk -F',' '{print $4}' | tr -d '\r')
     
-    # mkdir $pkg && cd $_
+    mkdir $pkg && cd $_
     echo "  GET      $pkg"
     wget -q "$url"
-    # wget -q "$sig"
-    # url_file=$(echo $url | rev | cut -d '/' -f 1 | rev)
-    # sig_file=$(echo $sig | rev | cut -d '/' -f 1 | rev)
-    # gpg --verify $sig_file $url_file || rm *
-    # cd .. && rmdir $pkg 2>/dev/null
+    wget -q "$sig"
+    url_file=$(echo $url | rev | cut -d '/' -f 1 | rev)
+    sig_file=$(echo $sig | rev | cut -d '/' -f 1 | rev)
+    echo $sig | grep gnu && wget -q "https://ftp.gnu.org/gnu/gnu-keyring.gpg"
+    gpg --verify --keyring ./gnu-keyring.gpg $sig_file $url_file || rm *
+    cd .. && rmdir $pkg 2>/dev/null
   done
   popd &>/dev/null; echo
 else
