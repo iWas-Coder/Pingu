@@ -1,17 +1,33 @@
 #!/bin/bash
 
+# === Ctrl+C handling === #
 ctrl_c () {
   echo -e "\n[!] Exiting..."
-  exit 1
+  tput cnorm; exit 1
 }
 trap ctrl_c INT
 
-if [[ $(echo $PWD | sed -ne 's/^.*pingu//p') != "/assets/tools" ]]; then
-  echo -e "\n[!] Run from: pingu/assets/tools\n    Usage: ./downloader <STAGE>"; exit 1
-fi
-sudo cat /dev/null
+# === Hide cursor === #
+tput civis
 
+# === Ensure path === #
+if [[ $(echo $PWD | sed -ne 's/^.*pingu//p') != "/assets/tools" ]]; then
+  echo -e "\n[!] Run from: pingu/assets/tools\n    Usage: ./downloader <STAGE> || -h"
+  tput cnorm; exit 1
+fi
+# === Help === #
+if [[ "$1" == "-h" ]]; then
+  echo -e "[!] Usage: ./downloader <STAGE>\n    Stages:"
+  echo -e "    \t0: Compiling a Cross-Toolchain"
+  echo -e "    \t1: Cross Compiling Temporary Tools"
+  echo -e "    \t2: Building Additional Temporary Tools"
+  echo -e "    \t3: Installing Basic System Software"
+  tput cnorm; exit 0
+fi
+
+# === STAGE 0 === #
 if [[ "$1" == "0" ]]; then
+  sudo cat /dev/null
   echo -e "[0] Downloading Cross-Toolchain PKGs... (../../../tools)"
   pushd ../../.. &>/dev/null && mkdir tools && cd $_
   for line in $(cat ../pingu/assets/pkgs/lfs/0-cross_toolchain_pkgs); do
@@ -22,16 +38,35 @@ if [[ "$1" == "0" ]]; then
     sig=$(echo $line | awk -F',' '{print $4}' | tr -d '\r')
     
     mkdir $pkg && cd $_
-    echo "  GET      $pkg"
+    echo -e "\tGET\t$pkg"
     wget -q "$url"
     wget -q "$sig"
     url_file=$(echo $url | rev | cut -d '/' -f 1 | rev)
     sig_file=$(echo $sig | rev | cut -d '/' -f 1 | rev)
-    echo $sig | grep gnu && wget -q "https://ftp.gnu.org/gnu/gnu-keyring.gpg" && gpg --verify --keyring ./gnu-keyring.gpg $sig_file $url_file || rm *
-    echo $sig | grep kernel && gpg --locate-keys torvalds@kernel.org gregkh@kernel.org && gzip -d $url_file && gpg --verify $sig_file $url_file
+
+    # GNU
+    echo $sig | grep -q gnu \
+      && wget -q "https://ftp.gnu.org/gnu/gnu-keyring.gpg" \
+      && echo -ne "\tVERIFY\t$pkg ... " \
+      && gpg --verify --keyring ./gnu-keyring.gpg $sig_file $url_file &>/dev/null \
+      && echo "OK"
+    
+    # Linux Kernel
+    echo $sig | grep -q kernel \
+      && echo -ne "\tVERIFY\t$pkg ... " \
+      && gpg --locate-keys torvalds@kernel.org gregkh@kernel.org &>/dev/null \
+      && gzip -d $url_file \
+      && linux_file=${url_file::-3} \
+      && gpg --verify $sig_file $linux_file &>/dev/null \
+      && echo "OK"
+    
+    # Go back and remove subdir if empty
     cd .. && rmdir $pkg 2>/dev/null
   done
   popd &>/dev/null; echo
-else
-  echo -e "[!] Usage: ./downloader <STAGE>"
+  tput cnorm; exit 0
 fi
+
+# === Not given any valid option === #
+echo -e "[!] Usage: ./downloader <STAGE> || -h"
+tput cnorm; exit 1
