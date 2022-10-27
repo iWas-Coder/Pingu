@@ -2,12 +2,14 @@
 
 # Simple script to list version numbers of critical development tools
 
+OFF='\033[0m'
+RED='\033[1;31m'
 
 export LC_ALL=C
 bash --version | head -n1 | cut -d" " -f2-4
 MYSH=$(readlink -f /bin/sh)
 echo "/bin/sh -> $MYSH"
-echo $MYSH | grep -q bash || echo "ERROR: /bin/sh does not point to bash"
+echo $MYSH | grep -q bash || echo "${RED}ERROR: /bin/sh does not point to bash${OFF}"
 unset MYSH
 
 echo -n "Binutils: "; ld --version | head -n1 | cut -d" " -f3-
@@ -18,7 +20,7 @@ if [ -h /usr/bin/yacc ]; then
 elif [ -x /usr/bin/yacc ]; then
   echo yacc is `/usr/bin/yacc --version | head -n1`
 else
-  echo "yacc not found"
+  echo "${RED}yacc not found${OFF}"
 fi
 
 echo -n "Coreutils: "; chown --version | head -n1 | cut -d")" -f2
@@ -31,7 +33,7 @@ if [ -h /usr/bin/awk ]; then
 elif [ -x /usr/bin/awk ]; then
   echo awk is `/usr/bin/awk --version | head -n1`
 else
-  echo "awk not found"
+  echo "${RED}awk not found${OFF}"
 fi
 
 gcc --version | head -n1
@@ -52,5 +54,5 @@ xz --version | head -n1
 echo 'int main(){}' > dummy.c && g++ -o dummy dummy.c
 if [ -x dummy ]
   then echo "g++ compilation OK";
-  else echo "g++ compilation failed"; fi
+  else echo "${RED}g++ compilation failed${OFF}"; fi
 rm -f dummy.c dummy
