@@ -21,13 +21,98 @@ ctrl_c () {
 }
 trap ctrl_c INT
 
-# === Check if tools are available === #
+
+####################################################################
+#######################     CHECKER     ############################
+####################################################################
 separator
 
+# Install basic packages for the host
 cat assets/pkgs/arch/0-basic_pkgs | xargs pacman -Sy --noconfirm
 clear
 export LC_ALL=C
 
-echo ""
+check_if () {
+  echo -ne "${C_WHITE}[*] ${C_PURPLE}${1}${C_WHITE}"
+  if command -v $1 &>/dev/null; then
+    echo -e " ... ${C_GREEN}OK${C_RESET}"
+  else
+    echo -e " ... ${C_RED}ERROR${C_RESET}"
+  fi
+}
+
+# Bash
+check_if bash
+
+# Sh
+MYSH=$(readlink -f /bin/sh)
+echo -ne "${C_WHITE}[*] ${C_PURPLE}/bin/sh${C_WHITE} -> ${C_PURPLE}$MYSH${C_WHITE}"
+echo $MYSH | grep -q bash \
+&& echo -e " ... ${C_GREEN}OK${C_RESET}" \
+|| echo -e " ... ${RED}ERROR${C_RESET}"
+unset MYSH
+
+# Binutils
+check_if ld
+
+# Bison
+check_if bison
+
+# Yacc
+$MYYACC=$(readlink -f /usr/bin/yacc)
+if [ -h /usr/bin/yacc ]; then
+echo -e "${C_WHITE}[*] ${C_PURPLE}/usr/bin/yacc${C_WHITE} -> ${C_PURPLE}$MYYACC${C_WHITE} ... ${C_GREEN}OK${C_RESET}"
+elif [ -x /usr/bin/yacc ]; then
+  echo -e "${C_WHITE}[*] ${C_PURPLE}yacc${C_WHITE}  ... ${C_GREEN}OK${C_RESET}"
+else
+  echo -e "${C_WHITE}[*] ${C_PURPLE}yacc${C_WHITE}  ... ${C_RED}ERROR${C_RESET}"
+fi
+unset MYYACC
+
+# Coreutils
+check_if chown
+check_if diff
+check_if find
+check_if gawk
+
+# Awk
+$MYAWK=$(readlink -f /usr/bin/awk)
+if [ -h /usr/bin/awk ]; then
+echo -e "${C_WHITE}[*] ${C_PURPLE}/usr/bin/awk${C_WHITE} -> ${C_PURPLE}$MYAWK${C_WHITE} ... ${C_GREEN}OK${C_RESET}"
+elif [ -x /usr/bin/awk ]; then
+  echo -e "${C_WHITE}[*] ${C_PURPLE}awk${C_WHITE}  ... ${C_GREEN}OK${C_RESET}"
+else
+  echo -e "${C_WHITE}[*] ${C_PURPLE}awk${C_WHITE}  ... ${C_RED}ERROR${C_RESET}"
+fi
+unset MYAWK
+
+# Other tools
+check_if gcc
+check_if g++
+check_if grep
+check_if gzip
+check_if m4
+check_if make
+check_if patch
+check_if perl
+check_if python3
+check_if sed
+check_if tar
+check_if makeinfo
+check_if xz
+
+# Compilation test
+echo 'int main(){}' > dummy.c && g++ -o dummy dummy.c
+if [ -x dummy ]; then
+  echo -e "${C_WHITE}[*] ${C_PURPLE}Compilation (g++)${C_WHITE}  ... ${C_GREEN}OK${C_RESET}"
+else
+  echo -e "${C_WHITE}[*] ${C_PURPLE}Compilation (g++)${C_WHITE}  ... ${C_RED}ERROR${C_RESET}"
+fi
+rm -f dummy.c dummy
 
 separator
+
+
+####################################################################
+###############     COMPILING A CROSS-TOOLCHAIN     ################
+####################################################################
