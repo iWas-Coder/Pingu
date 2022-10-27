@@ -1,0 +1,33 @@
+#!/bin/bash
+
+# === Colours === #
+C_RESET='\033[0m'
+C_RED='\033[1;31m'
+C_GREEN='\033[1;32m'
+C_YELLOW='\033[1;33m'
+C_PURPLE='\033[1;35m'
+C_CYAN='\033[1;36m'
+C_WHITE='\033[1;37m'
+
+# === Separator line === #
+separator () {
+  printf '%.s─' $(seq 1 $(tput cols))
+}
+
+# === Ctrl+C handling === #
+ctrl_c () {
+  echo -e "\n[!] Exiting..."
+  tput cnorm; exit 1
+}
+trap ctrl_c INT
+
+# === Check if tools are available === #
+separator
+
+cat assets/pkgs/arch/0-basic_pkgs | xargs pacman -Sy --noconfirm
+clear
+export LC_ALL=C
+
+echo ""
+
+separator
