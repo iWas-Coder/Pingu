@@ -134,8 +134,8 @@ sleep 2
 
 export LFS="/mnt/lfs"
 rm -r $LFS/* 2>/dev/null
-echo -e "${C_WHITE}[${C_RED}0${C_WHITE}] ${CYAN}Downloading Cross-Toolchain PKGs...${C_WHITE} (${C_PURPLE}$LFS/tools${C_WHITE})"
-pushd $LFS &>/dev/null && mkdir tools && cd $_ || { echo -e "${C_RED}ERROR: ${C_PURPLE}$LFS${C_WHITE} does not exist! Please, setup your environment accordingly before executing this script." && ctrl_c; }
+echo -e "${C_WHITE}[${C_RED}0${C_WHITE}] ${CYAN}Downloading Cross-Toolchain PKGs...${C_WHITE} (${C_PURPLE}$LFS/src${C_WHITE})"
+pushd $LFS &>/dev/null && mkdir src && cd $_ || { echo -e "${C_RED}ERROR: ${C_PURPLE}$LFS${C_WHITE} does not exist! Please, setup your environment accordingly before executing this script." && ctrl_c; }
 
 for line in $(cat $PINGU/assets/pkgs/lfs/0-cross_toolchain_pkgs); do
   ver=$(echo $line | awk -F',' '{print $2}')
@@ -176,10 +176,36 @@ for line in $(cat $PINGU/assets/pkgs/lfs/0-cross_toolchain_pkgs); do
   cd .. && rmdir $pkg 2>/dev/null
 done
 
-popd &>/dev/null; echo
+popd &>/dev/null; clear
 
 echo -e "${C_RED}STAGE 0: ${C_WHITE}Compiling a Cross-Toolchain"
 separator
 sleep 2
+pushd $LFS &>/dev/null && mkdir tools && cd src
 
-echo -e "${C_WHITE}[${C_RED}0${C_WHITE}] ${CYAN}Compiling binutils...${C_WHITE} (${C_PURPLE}binutils${C_WHITE})"
+echo -e "${C_WHITE}[${C_RED}0${C_WHITE}] ${CYAN}Compiling binutils...${C_WHITE} (${C_PURPLE}1 SBU | 629MB${C_WHITE})"
+cd binutils*
+mkdir build && cd $_
+../configure --prefix=$LFS/tools \
+             --with-sysroot=$LFS \
+             --target=$(uname -m)-lfs-linux-gnu \
+             --disable-nls \
+             --enable-gprofng=no \
+             --disable-werror
+clear
+echo -e "${C_RED}STAGE 0: ${C_WHITE}Compiling a Cross-Toolchain"
+separator
+sleep 2
+echo -e "${C_WHITE}[${C_RED}0${C_WHITE}] ${CYAN}Compiling Binutils...${C_WHITE} (${C_PURPLE}1 SBU | 629MB${C_WHITE})"
+make -j$(nproc)
+make install
+clear
+
+echo -e "${C_RED}STAGE 0: ${C_WHITE}Compiling a Cross-Toolchain"
+separator
+sleep 2
+echo -e "${C_WHITE}[${C_RED}0${C_WHITE}] ${CYAN}Compiling GCC...${C_WHITE} (${C_PURPLE}12 SBU | 3.8GB${C_WHITE})"
+
+
+
+
