@@ -30,7 +30,9 @@ trap ctrl_c INT
 ####################################################################
 
 # Install basic packages for the host
-# cat assets/pkgs/arch/0-basic_pkgs | xargs pacman -Sy --noconfirm
+if command -v pacman &>/dev/null; then
+  cat assets/pkgs/arch/0-basic_pkgs | xargs pacman -Sy --noconfirm
+fi
 
 clear
 echo -e "${C_RED}CHECKER: ${C_WHITE}Check all needed tools in the host's system"
