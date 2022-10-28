@@ -19,19 +19,22 @@ separator () {
 # === Ctrl+C handling === #
 ctrl_c () {
   echo -e "\n[!] Exiting..."
-  tput cnorm; exit 1
+  exit 1
 }
 trap ctrl_c INT
+
 
 
 ####################################################################
 #######################     CHECKER     ############################
 ####################################################################
-separator
 
 # Install basic packages for the host
-cat assets/pkgs/arch/0-basic_pkgs | xargs pacman -Sy --noconfirm
+# cat assets/pkgs/arch/0-basic_pkgs | xargs pacman -Sy --noconfirm
+
 clear
+echo -e "${C_RED}CHECKER: ${C_WHITE}Check all needed tools in the host's system"
+separator
 export LC_ALL=C
 
 check_if () {
@@ -51,7 +54,7 @@ MYSH=$(readlink -f /bin/sh)
 echo -ne "${C_WHITE}[*] ${C_PURPLE}/bin/sh${C_WHITE} -> ${C_PURPLE}$MYSH${C_WHITE}"
 echo $MYSH | grep -q bash \
 && echo -e " ... ${C_GREEN}OK${C_RESET}" \
-|| echo -e " ... ${RED}ERROR${C_RESET}"
+|| echo -e " ... ${C_RED}ERROR${C_RESET}"
 unset MYSH
 
 # Binutils
@@ -61,9 +64,9 @@ check_if ld
 check_if bison
 
 # Yacc
-$MYYACC=$(readlink -f /usr/bin/yacc)
+MYYACC=$(readlink -f /usr/bin/yacc)
 if [ -h /usr/bin/yacc ]; then
-echo -e "${C_WHITE}[*] ${C_PURPLE}/usr/bin/yacc${C_WHITE} -> ${C_PURPLE}$MYYACC${C_WHITE} ... ${C_GREEN}OK${C_RESET}"
+  echo -e "${C_WHITE}[*] ${C_PURPLE}/usr/bin/yacc${C_WHITE} -> ${C_PURPLE}$MYYACC${C_WHITE} ... ${C_GREEN}OK${C_RESET}"
 elif [ -x /usr/bin/yacc ]; then
   echo -e "${C_WHITE}[*] ${C_PURPLE}yacc${C_WHITE}  ... ${C_GREEN}OK${C_RESET}"
 else
@@ -78,9 +81,9 @@ check_if find
 check_if gawk
 
 # Awk
-$MYAWK=$(readlink -f /usr/bin/awk)
+MYAWK=$(readlink -f /usr/bin/awk)
 if [ -h /usr/bin/awk ]; then
-echo -e "${C_WHITE}[*] ${C_PURPLE}/usr/bin/awk${C_WHITE} -> ${C_PURPLE}$MYAWK${C_WHITE} ... ${C_GREEN}OK${C_RESET}"
+  echo -e "${C_WHITE}[*] ${C_PURPLE}/usr/bin/awk${C_WHITE} -> ${C_PURPLE}$MYAWK${C_WHITE} ... ${C_GREEN}OK${C_RESET}"
 elif [ -x /usr/bin/awk ]; then
   echo -e "${C_WHITE}[*] ${C_PURPLE}awk${C_WHITE}  ... ${C_GREEN}OK${C_RESET}"
 else
@@ -114,16 +117,24 @@ rm -f dummy.c dummy
 
 separator
 
-sleep 5
-sudo whoami &>/dev/null
+echo -ne "${C_YELLOW}All's good?${C_WHITE} (y/n): "
+read -n 1 -r
+if [[ ! $REPLY =~ ^[Yy]$ ]]; then ctrl_c; fi
+sudo ls &>/dev/null
 clear
 
 ####################################################################
 ###############     COMPILING A CROSS-TOOLCHAIN     ################
 ####################################################################
-export LFS="/mnt/lfs"
+echo -e "${C_RED}STAGE 0: ${C_WHITE}Compiling a Cross-Toolchain"
+separator
+sleep 2
+
+# export LFS="/mnt/lfs"
+export LFS="/home/wasym.atieh/LFS"
+rm -r $LFS/* 2>/dev/null
 echo -e "${C_WHITE}[${C_RED}0${C_WHITE}] ${CYAN}Downloading Cross-Toolchain PKGs...${C_WHITE} (${C_PURPLE}$LFS/tools${C_WHITE})"
-pushd $LFS &>/dev/null && mkdir tools && cd $_
+pushd $LFS &>/dev/null && mkdir tools && cd $_ || { echo -e "${C_RED}ERROR: ${C_PURPLE}$LFS${C_WHITE} does not exist! Please, setup your environment accordingly before executing this script." && ctrl_c; }
 
 for line in $(cat $PINGU/assets/pkgs/lfs/0-cross_toolchain_pkgs); do
   ver=$(echo $line | awk -F',' '{print $2}')
@@ -131,29 +142,34 @@ for line in $(cat $PINGU/assets/pkgs/lfs/0-cross_toolchain_pkgs); do
   pkg=$(echo $line | awk -F',' '{print $1}')
   url=$(echo $line | awk -F',' '{print $3}')
   sig=$(echo $line | awk -F',' '{print $4}' | tr -d '\r')
-    
-  mkdir $pkg && cd $_
-  echo -e "\tGET\t$pkg"
-  wget -q "$url"
-  wget -q "$sig"
+  
   url_file=$(echo $url | rev | cut -d '/' -f 1 | rev)
   sig_file=$(echo $sig | rev | cut -d '/' -f 1 | rev)
+  
+  mkdir $pkg && cd $_
+  echo -e "\tGET\t$url_file"
+  wget -q "$url"
+  wget -q "$sig"
 
   # GNU
   echo $sig | grep -q gnu \
     && wget -q "https://ftp.gnu.org/gnu/gnu-keyring.gpg" \
-    && echo -ne "\tVERIFY\t$pkg ... " \
+    && echo -e "\tVERIFY\t$sig_file" \
     && gpg --verify --keyring ./gnu-keyring.gpg $sig_file $url_file &>/dev/null \
-    && echo "OK"
+    && rm *.sig *.gpg \
+    && echo -e "\tEXTRACT\t$url_file" \
+    && tar -zxf $url_file && rm $_
     
   # Linux Kernel
   echo $sig | grep -q kernel \
-    && echo -ne "\tVERIFY\t$pkg ... " \
+    && echo -e "\tVERIFY\t$sig_file" \
     && gpg --locate-keys torvalds@kernel.org gregkh@kernel.org &>/dev/null \
     && gzip -d $url_file \
     && linux_file=${url_file::-3} \
     && gpg --verify $sig_file $linux_file &>/dev/null \
-    && echo "OK"
+    && rm *.sign \
+    && echo -e "\tEXTRACT\t$linux_file" \
+    && tar -xf $linux_file && rm $_
     
   # Go back and remove subdir if empty
   cd .. && rmdir $pkg 2>/dev/null
