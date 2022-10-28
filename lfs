@@ -132,8 +132,7 @@ echo -e "${C_RED}STAGE 0: ${C_WHITE}Compiling a Cross-Toolchain"
 separator
 sleep 2
 
-# export LFS="/mnt/lfs"
-export LFS="/home/wasym.atieh/LFS"
+export LFS="/mnt/lfs"
 rm -r $LFS/* 2>/dev/null
 echo -e "${C_WHITE}[${C_RED}0${C_WHITE}] ${CYAN}Downloading Cross-Toolchain PKGs...${C_WHITE} (${C_PURPLE}$LFS/tools${C_WHITE})"
 pushd $LFS &>/dev/null && mkdir tools && cd $_ || { echo -e "${C_RED}ERROR: ${C_PURPLE}$LFS${C_WHITE} does not exist! Please, setup your environment accordingly before executing this script." && ctrl_c; }
@@ -160,7 +159,7 @@ for line in $(cat $PINGU/assets/pkgs/lfs/0-cross_toolchain_pkgs); do
     && gpg --verify --keyring ./gnu-keyring.gpg $sig_file $url_file &>/dev/null \
     && rm *.sig *.gpg \
     && echo -e "\tEXTRACT\t$url_file" \
-    && tar -zxf $url_file && rm $_
+    && tar -zxf $url_file && rm $_ && mv * ..
     
   # Linux Kernel
   echo $sig | grep -q kernel \
@@ -171,10 +170,16 @@ for line in $(cat $PINGU/assets/pkgs/lfs/0-cross_toolchain_pkgs); do
     && gpg --verify $sig_file $linux_file &>/dev/null \
     && rm *.sign \
     && echo -e "\tEXTRACT\t$linux_file" \
-    && tar -xf $linux_file && rm $_
+    && tar -xf $linux_file && rm $_ && mv * ..
     
   # Go back and remove subdir if empty
   cd .. && rmdir $pkg 2>/dev/null
 done
 
 popd &>/dev/null; echo
+
+echo -e "${C_RED}STAGE 0: ${C_WHITE}Compiling a Cross-Toolchain"
+separator
+sleep 2
+
+echo -e "${C_WHITE}[${C_RED}0${C_WHITE}] ${CYAN}Compiling binutils...${C_WHITE} (${C_PURPLE}binutils${C_WHITE})"
