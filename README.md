@@ -15,8 +15,8 @@ Check documentation/wiki.
 
 ![Pingu Title](https://raw.githubusercontent.com/iWas-Coder/Pingu/main/assets/img/pingu-title.jpg)
 
-AVG Arch user: **I Use Arch BTW <3** 😋👻
+<ins>AVG Arch user</ins>: **I Use Arch BTW <3** 😋👻
 
-AVG LFS user: **GigaChad** 😎💪
+<ins>AVG LFS user</ins>: **GigaChad** 😎💪
 
 _(c) iWas. All rights reserved._
