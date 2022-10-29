@@ -1,0 +1,4 @@
+[submodule "kernel/linux"]
+	path = kernel/linux
+	url = https://github.com/torvalds/linux
+	shallow = true
