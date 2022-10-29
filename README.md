@@ -6,11 +6,11 @@ Custom Desktop Environment for Arch Linux
 Check the [full documentation (wiki)](https://github.com/iWas-Coder/Pingu/wiki) to start!
 
 ### Usage for Arch Linux
-#### Full clone (`iWas-Coder/Pingu` + `torvalds/linux @ v6.0`)
+#### Full clone (`iWas-Coder/Pingu` + `torvalds/linux @ v6.0`):
 ```console
 git clone --recursive "https://github.com/iwas-coder/pingu"
 ```
-#### Config-only clone
+#### Config-only clone (`iWas-Coder/Pingu`):
 ```console
 git clone "https://github.com/iwas-coder/pingu"
 ```
