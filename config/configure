@@ -11,10 +11,22 @@ C_WHITE='\033[1;37m'
 banner () {
     sleep 1
     clear
-    echo "${C_RED}[$1]${C_YELLOW} PINGU - $2"
+    echo -e "${C_RED}[$1]${C_YELLOW} PINGU - $2"
     printf '%.s─' $(seq 1 $(tput cols))
-    echo -n "${C_RESET}"
+    echo -ne "${C_RESET}"
     sleep 2
+}
+
+log () {
+    echo -e "${C_PURPLE}$1\t${C_WHITE}$2"
+    sleep 1
+}
+
+finish () {
+    clear
+    sleep 1
+    echo -e "${C_GREEN}That's it! All tasks should have been performed correctly :)${C_WHITE}"
+    echo -e "Visit 'https://github.com/iwas-coder'${C_RESET}"
 }
 
 # === Check proper execution (as normal user) === #
@@ -84,57 +96,102 @@ cd ../..; rm -rf Bento4
 cd $LOCATION
 
 # === ZSH === #
+banner "3" "Configuring ZSH"
+log "COPY" ".zprofile"
 cp ./zsh/zprofile ~/.zprofile
+log "COPY" ".zshrc"
 cp ./zsh/zshrc ~/.zshrc
+log "LINK" ".zshrc"
 sudo ln -s ~/.zshrc /root/.zshrc
 sudo mkdir -p /usr/share/custom-zsh/zsh-sudo
+log "CLONE" "powerlevel10k"
 sudo git --quiet clone "https://github.com/romkatv/powerlevel10k" /usr/share/custom-zsh/powerlevel10k
+log "COPY" ".p10k.zsh"
 sudo cp ./zsh/p10k.zsh /usr/share/custom-zsh/.p10k.zsh
+log "CLONE" "zsh-syntax-highlighting"
 sudo git --quiet clone "https://github.com/zsh-users/zsh-syntax-highlighting" /usr/share/custom-zsh/zsh-syntax-highlighting
+log "CLONE" "zsh-autosuggestions"
 sudo git --quiet clone "https://github.com/zsh-users/zsh-autosuggestions" /usr/share/custom-zsh/zsh-autosuggestions
+log "GET" "sudo.plugin.zsh"
 sudo curl -sX GET "https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/plugins/sudo/sudo.plugin.zsh" > /usr/share/custom-zsh/zsh-sudo/sudo.plugin.zsh
+log "CLONE" "fzf"
 sudo git --quiet clone "https://github.com/junegunn/fzf" /usr/share/custom-zsh/fzf
+log "COPY" ".fzf.zsh"
 sudo cp ./zsh/fzf.zsh /usr/share/custom-zsh/.fzf.zsh
+log "USERMOD" "/usr/bin/zsh -> root"
 sudo usermod --shell /usr/bin/zsh root
+log "USERMOD" "/usr/bin/zsh -> $USERNAME"
 sudo usermod --shell /usr/bin/zsh $USERNAME
 
 # === Xorg === #
+banner "4" "Configuring Xorg"
+log "COPY" "xinitrc"
 sudo cp ./xorg/xinitrc /etc/X11/xinit/xinitrc
+log "COPY" ".xprofile"
 cp ./xorg/xprofile ~/.xprofile
+log "COPY" ".Xresources"
 cp ./xorg/Xresources ~/.Xresources
 mkdir ~/.config/gtk-3.0
+log "COPY" "settings.ini"
 cp ./xorg/settings.ini ~/.config/gtk-3.0/settings.ini
+log "COPY" "00-keyboard.conf"
 sudo cp ./xorg/00-keyboard.conf /etc/X11/xorg.conf.d/00-keyboard.conf
+log "COPY" "10-monitor.conf"
 sudo cp ./xorg/10-monitor.conf /etc/X11/xorg.conf.d/10-monitor.conf
+log "COPY" "20-mouse-acceleration.conf"
 sudo cp ./xorg/20-mouse-acceleration.conf /etc/X11/xorg.conf.d/20-mouse-acceleration.conf
 
 # === Qtile === #
+banner "5" "Configuring Qtile"
+log "COPY [R]" "qtile"
 cp -r ./qtile ~/.config/qtile
 
 # === Kitty === #
+banner "6" "Configuring Kitty"
+log "COPY [R]" "kitty"
 cp -r ./kitty ~/.config/kitty
 
 # === Picom === #
+banner "7" "Configuring Picom"
+log "COPY [R]" "picom"
 cp -r ./picom ~/.config/picom
 
 # === Ranger === #
+banner "8" "Configuring Ranger"
+log "COPY [R]" "ranger"
 cp -r ./ranger ~/.config/ranger
+log "CLONE" "plugins"
 git --quiet clone "https://github.com/alexanderjeurissen/ranger_devicons" ~/.config/ranger/plugins
+log "LINK" "ranger"
 sudo ln -s ~/.config/ranger /root/.config/ranger
 
 # === Rofi === #
+banner "9" "Configuring Rofi"
+log "COPY [R]" "rofi"
 cp -r ./rofi ~/.config/rofi
+log "MOVE" "onedark.rasi"
 sudo mv ~/.config/rofi/onedark.rasi /usr/share/rofi/themes
 
 # === Audio === #
+banner "10" "Configuring Audio"
+log "COPY [R]" "wireplumber"
 cp ./wireplumber/main.lua.d/* /usr/share/wireplumber/main.lua.d
 
 # === Chromium === #
+banner "11" "Configuring Chromium"
+log "COPY" "chromium-flags.conf"
 cp ./chromium/chromium-flags.conf ~/.config/chromium-flags.conf
 
 # === Wallpapers === #
+banner "12" "Configuring Wallpapers"
+log "COPY [R]" "wallpapers"
 sudo cp -r ./wallpapers /usr/share/wallpapers
 
 # === Lockscreen === #
+banner "13" "Configuring Lockscreen"
+log "COPY [R]" "lockscreen"
 sudo cp -r ./lockscreen /usr/share/lockscreen
+log "CHOWN [R]" "lockscreen"
 sudo chown -R $USERNAME:$USERNAME /usr/share/lockscreen
+
+finish
