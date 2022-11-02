@@ -55,6 +55,7 @@ qtile
 ranger
 rofi
 scrot
+shellcheck
 sl
 sox
 strace
