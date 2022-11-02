@@ -118,7 +118,7 @@ sudo git --quiet clone "https://github.com/zsh-users/zsh-syntax-highlighting" /u
 log "CLONE" "zsh-autosuggestions"
 sudo git --quiet clone "https://github.com/zsh-users/zsh-autosuggestions" /usr/share/custom-zsh/zsh-autosuggestions
 log "GET" "sudo.plugin.zsh"
-sudo curl -sX GET "https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/plugins/sudo/sudo.plugin.zsh" > /usr/share/custom-zsh/zsh-sudo/sudo.plugin.zsh
+curl -sX GET "https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/plugins/sudo/sudo.plugin.zsh" | sudo tee /usr/share/custom-zsh/zsh-sudo/sudo.plugin.zsh
 log "CLONE" "fzf"
 sudo git --quiet clone "https://github.com/junegunn/fzf" /usr/share/custom-zsh/fzf
 log "COPY" ".fzf.zsh"
