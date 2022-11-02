@@ -34,6 +34,7 @@ if [ $(id -u) -eq 0 ]; then
     echo "Please DO NOT run this script as ROOT (nor with SUDO privileges)!"
     exit 1
 fi
+
 USERNAME=$(whoami)
 LOCATION=$PWD
 
@@ -44,6 +45,11 @@ banner "*" "Dotfiles Automated Configuration"
 
 
 # === GRUB === #
+banner "1" "Configuring GRUB"
+log "COPY" "grub"
+sudo cp ./grub/grub /etc/default/grub
+log "COPY [R]" "CyberRe"
+sudo cp -r ./grub/CyberRe /boot/grub/themes/CyberRe
 
 # === Official Packages === #
 for pkg in $(cat ../assets/pkgs/official_pkgs); do
