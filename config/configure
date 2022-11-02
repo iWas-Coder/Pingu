@@ -66,9 +66,9 @@ yay -Sc
 cd "$LOCATION" || exit
 
 # === logiops === #
-cd ~
+cd ~ || exit
 git clone --quiet "https://github.com/PixlOne/logiops"
-cd logiops
+cd logiops || exit
 mkdir build; cd $_
 banner "2.3" "From source Packages (logiops) - cmake"
 cmake ..
@@ -82,12 +82,12 @@ cd "$LOCATION" || exit
 
 # === GEF for GDB === #
 banner "2.4" "From source Packages (gef) - bash"
-cd ~
+cd ~ || exit
 curl -sLX GET "https://gef.blah.cat/sh" | bash
 cd "$LOCATION" || exit
 
 # === Bento4 === #
-cd ~
+cd ~ || exit
 git clone --quiet "https://github.com/axiomatic-systems/Bento4"
 cd Bento4
 mkdir build; cd $_
