@@ -69,7 +69,7 @@ cd "$LOCATION" || exit
 cd ~ || exit
 git clone --quiet "https://github.com/PixlOne/logiops"
 cd logiops || exit
-mkdir build; cd $_ || exit
+mkdir build; cd "$_" || exit
 banner "2.3" "From source Packages (logiops) - cmake"
 cmake ..
 banner "2.3" "From source Packages (logiops) - make"
@@ -90,7 +90,7 @@ cd "$LOCATION" || exit
 cd ~ || exit
 git clone --quiet "https://github.com/axiomatic-systems/Bento4"
 cd Bento4 || exit
-mkdir build; cd $_ || exit
+mkdir build; cd "$_" || exit
 banner "2.3" "From source Packages (Bento4) - cmake"
 cmake -DCMAKE_BUILD_TYPE=Release ..
 banner "2.3" "From source Packages (logiops) - make"
