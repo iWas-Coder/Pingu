@@ -1,2 +1,140 @@
 #!/bin/bash
 
+C_RESET='\033[0m'
+C_RED='\033[1;31m'
+C_GREEN='\033[1;32m'
+C_YELLOW='\033[1;33m'
+C_PURPLE='\033[1;35m'
+C_CYAN='\033[1;36m'
+C_WHITE='\033[1;37m'
+
+banner () {
+    sleep 1
+    clear
+    echo "${C_RED}[$1]${C_YELLOW} PINGU - $2"
+    printf '%.s─' $(seq 1 $(tput cols))
+    echo -n "${C_RESET}"
+    sleep 2
+}
+
+# === Check proper execution (as normal user) === #
+if [ $(id -u) -eq 0 ]; then
+    echo "Please DO NOT run this script as ROOT (nor with SUDO privileges)!"
+    exit 1
+fi
+USERNAME=$(whoami)
+LOCATION=$PWD
+
+# === Obtain SUDO privileges === #
+sudo ls &>/dev/null
+
+banner "*" "Dotfiles Automated Configuration"
+
+
+# === GRUB === #
+
+# === Official Packages === #
+for pkg in $(cat ../assets/pkgs/official_pkgs); do
+    banner "2.1" "Official Packages ($pkg)"
+    sudo pacman -S $pkg --noconfirm
+done
+cd $LOCATION
+
+# === AUR Packages === #
+for pkg in $(cat ../assets/pkgs/aur_pkgs); do
+    banner "2.2" "AUR Packages ($pkg)"
+    yay -S $pkg --noconfirm --answerdiff=None --cleanafter
+done
+yay -Sc
+cd $LOCATION
+
+# === logiops === #
+cd ~
+git clone --quiet "https://github.com/PixlOne/logiops"
+cd logiops
+mkdir build; cd $_
+banner "2.3" "From source Packages (logiops) - cmake"
+cmake ..
+banner "2.3" "From source Packages (logiops) - make"
+make
+banner "2.3" "From source Packages (logiops) - make install"
+sudo make install
+systemctl enable logid
+cd ../..; rm -rf logiops
+cd $LOCATION
+
+# === GEF for GDB === #
+banner "2.4" "From source Packages (gef) - bash"
+cd ~
+curl -sLX GET "https://gef.blah.cat/sh" | bash
+cd $LOCATION
+
+# === Bento4 === #
+cd ~
+git clone --quiet "https://github.com/axiomatic-systems/Bento4"
+cd Bento4
+mkdir build; cd $_
+banner "2.3" "From source Packages (Bento4) - cmake"
+cmake -DCMAKE_BUILD_TYPE=Release ..
+banner "2.3" "From source Packages (logiops) - make"
+make
+banner "2.3" "From source Packages (logiops) - make install"
+sudo make install
+cd ../..; rm -rf Bento4
+cd $LOCATION
+
+# === ZSH === #
+cp ./zsh/zprofile ~/.zprofile
+cp ./zsh/zshrc ~/.zshrc
+sudo ln -s ~/.zshrc /root/.zshrc
+sudo mkdir -p /usr/share/custom-zsh/zsh-sudo
+sudo git --quiet clone "https://github.com/romkatv/powerlevel10k" /usr/share/custom-zsh/powerlevel10k
+sudo cp ./zsh/p10k.zsh /usr/share/custom-zsh/.p10k.zsh
+sudo git --quiet clone "https://github.com/zsh-users/zsh-syntax-highlighting" /usr/share/custom-zsh/zsh-syntax-highlighting
+sudo git --quiet clone "https://github.com/zsh-users/zsh-autosuggestions" /usr/share/custom-zsh/zsh-autosuggestions
+sudo curl -sX GET "https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/plugins/sudo/sudo.plugin.zsh" > /usr/share/custom-zsh/zsh-sudo/sudo.plugin.zsh
+sudo git --quiet clone "https://github.com/junegunn/fzf" /usr/share/custom-zsh/fzf
+sudo cp ./zsh/fzf.zsh /usr/share/custom-zsh/.fzf.zsh
+sudo usermod --shell /usr/bin/zsh root
+sudo usermod --shell /usr/bin/zsh $USERNAME
+
+# === Xorg === #
+sudo cp ./xorg/xinitrc /etc/X11/xinit/xinitrc
+cp ./xorg/xprofile ~/.xprofile
+cp ./xorg/Xresources ~/.Xresources
+mkdir ~/.config/gtk-3.0
+cp ./xorg/settings.ini ~/.config/gtk-3.0/settings.ini
+sudo cp ./xorg/00-keyboard.conf /etc/X11/xorg.conf.d/00-keyboard.conf
+sudo cp ./xorg/10-monitor.conf /etc/X11/xorg.conf.d/10-monitor.conf
+sudo cp ./xorg/20-mouse-acceleration.conf /etc/X11/xorg.conf.d/20-mouse-acceleration.conf
+
+# === Qtile === #
+cp -r ./qtile ~/.config/qtile
+
+# === Kitty === #
+cp -r ./kitty ~/.config/kitty
+
+# === Picom === #
+cp -r ./picom ~/.config/picom
+
+# === Ranger === #
+cp -r ./ranger ~/.config/ranger
+git --quiet clone "https://github.com/alexanderjeurissen/ranger_devicons" ~/.config/ranger/plugins
+sudo ln -s ~/.config/ranger /root/.config/ranger
+
+# === Rofi === #
+cp -r ./rofi ~/.config/rofi
+sudo mv ~/.config/rofi/onedark.rasi /usr/share/rofi/themes
+
+# === Audio === #
+cp ./wireplumber/main.lua.d/* /usr/share/wireplumber/main.lua.d
+
+# === Chromium === #
+cp ./chromium/chromium-flags.conf ~/.config/chromium-flags.conf
+
+# === Wallpapers === #
+sudo cp -r ./wallpapers /usr/share/wallpapers
+
+# === Lockscreen === #
+sudo cp -r ./lockscreen /usr/share/lockscreen
+sudo chown -R $USERNAME:$USERNAME /usr/share/lockscreen
