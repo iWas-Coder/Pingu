@@ -54,17 +54,17 @@ sudo cp -r ./grub/CyberRe /boot/grub/themes/CyberRe
 # === Official Packages === #
 for pkg in $(cat ../assets/pkgs/official_pkgs); do
     banner "2.1" "Official Packages ($pkg)"
-    sudo pacman -S $pkg --noconfirm
+    sudo pacman -S "$pkg" --noconfirm
 done
-cd $LOCATION
+cd "$LOCATION"
 
 # === AUR Packages === #
 for pkg in $(cat ../assets/pkgs/aur_pkgs); do
     banner "2.2" "AUR Packages ($pkg)"
-    yay -S $pkg --noconfirm --answerdiff=None --cleanafter
+    yay -S "$pkg" --noconfirm --answerdiff=None --cleanafter
 done
 yay -Sc
-cd $LOCATION
+cd "$LOCATION"
 
 # === logiops === #
 cd ~
@@ -79,13 +79,13 @@ banner "2.3" "From source Packages (logiops) - make install"
 sudo make install
 systemctl enable logid
 cd ../..; rm -rf logiops
-cd $LOCATION
+cd "$LOCATION"
 
 # === GEF for GDB === #
 banner "2.4" "From source Packages (gef) - bash"
 cd ~
 curl -sLX GET "https://gef.blah.cat/sh" | bash
-cd $LOCATION
+cd "$LOCATION"
 
 # === Bento4 === #
 cd ~
@@ -99,7 +99,7 @@ make
 banner "2.3" "From source Packages (logiops) - make install"
 sudo make install
 cd ../..; rm -rf Bento4
-cd $LOCATION
+cd "$LOCATION"
 
 # === ZSH === #
 banner "3" "Configuring ZSH"
@@ -127,7 +127,7 @@ sudo cp ./zsh/fzf.zsh /usr/share/custom-zsh/.fzf.zsh
 log "USERMOD" "/usr/bin/zsh -> root"
 sudo usermod --shell /usr/bin/zsh root
 log "USERMOD" "/usr/bin/zsh -> $USERNAME"
-sudo usermod --shell /usr/bin/zsh $USERNAME
+sudo usermod --shell /usr/bin/zsh "$USERNAME"
 
 # === Xorg === #
 banner "4" "Configuring Xorg"
@@ -198,6 +198,6 @@ banner "13" "Configuring Lockscreen"
 log "COPY [R]" "lockscreen"
 sudo cp -r ./lockscreen /usr/share/lockscreen
 log "CHOWN [R]" "lockscreen"
-sudo chown -R $USERNAME:$USERNAME /usr/share/lockscreen
+sudo chown -R "$USERNAME":"$USERNAME" /usr/share/lockscreen
 
 finish
