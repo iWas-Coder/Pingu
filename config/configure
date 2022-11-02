@@ -49,6 +49,15 @@ log "COPY" "grub"
 sudo cp ./grub/grub /etc/default/grub
 log "COPY [R]" "CyberRe"
 sudo cp -r ./grub/CyberRe /boot/grub/themes/CyberRe
+echo -ne "${C_YELLOW}Encrypted ROOT partition (full path): ${C_RESET}"
+read ENC_ROOT_PARTITION
+ENC_ROOT_UUID=$(sudo blkid -o value -s UUID "$ENC_ROOT_PARTITION")
+echo -ne "${C_YELLOW}Encrypted HOME partition (full path): ${C_RESET}"
+read ENC_HOME_PARTITION
+ENC_HOME_UUID=$(sudo blkid -o value -s UUID "$ENC_HOME_PARTITION")
+RESULT_STRING="root=/dev/mapper/cryptroot rd.luks.name=${ENC_ROOT_UUID}=cryptroot rd.luks.name=${ENC_HOME_UUID}=crypthome rd.luks.options=timeout=0 rootflags=x-systemd.device-timeout=0"
+log "SUBST" "grub -> dm-crypt systemd"
+sudo sed "s/GRUB_CMDLINE_LINUX=\"\"/GRUB_CMDLINE_LINUX=\"${RESULT_STRING}\"/" -i /etc/default/grub
 
 # === Official Packages === #
 for pkg in $(cat ../assets/pkgs/official_pkgs); do
