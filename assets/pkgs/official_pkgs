@@ -64,6 +64,7 @@ upx
 vulkan-icd-loader
 wget
 whois
+wpa_supplicant
 xclip
 xmlto
 xorg
