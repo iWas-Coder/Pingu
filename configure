@@ -46,9 +46,9 @@ banner "*" "Dotfiles Automated Configuration"
 # === GRUB === #
 banner "1" "Configuring GRUB"
 log "COPY" "grub"
-sudo cp ./grub/grub /etc/default/grub
+sudo cp ./config/grub/grub /etc/default/grub
 log "COPY [R]" "CyberRe"
-sudo cp -r ./grub/CyberRe /boot/grub/themes/CyberRe
+sudo cp -r ./config/grub/CyberRe /boot/grub/themes/CyberRe
 echo -ne "${C_YELLOW}Encrypted ROOT partition (full path): ${C_RESET}"
 read -r ENC_ROOT_PARTITION
 ENC_ROOT_UUID=$(sudo blkid -o value -s UUID "$ENC_ROOT_PARTITION")
@@ -60,14 +60,14 @@ log "SUBST" "grub -> dm-crypt systemd"
 sudo sed "s/GRUB_CMDLINE_LINUX=\"\"/GRUB_CMDLINE_LINUX=\"${RESULT_STRING}\"/" -i /etc/default/grub
 
 # === Official Packages === #
-for pkg in $(cat ../assets/pkgs/official_pkgs); do
+for pkg in $(cat ./assets/pkgs/official_pkgs); do
     banner "2.1" "Official Packages ($pkg)"
     sudo pacman -S "$pkg" --noconfirm
 done
 cd "$LOCATION" || exit
 
 # === AUR Packages === #
-for pkg in $(cat ../assets/pkgs/aur_pkgs); do
+for pkg in $(cat ./assets/pkgs/aur_pkgs); do
     banner "2.2" "AUR Packages ($pkg)"
     yay -S "$pkg" --noconfirm --answerdiff=None --cleanafter
 done
@@ -112,16 +112,16 @@ cd "$LOCATION" || exit
 # === ZSH === #
 banner "3" "Configuring ZSH"
 log "COPY" ".zprofile"
-cp ./zsh/zprofile ~/.zprofile
+cp ./config/zsh/zprofile ~/.zprofile
 log "COPY" ".zshrc"
-cp ./zsh/zshrc ~/.zshrc
+cp ./config/zsh/zshrc ~/.zshrc
 log "LINK" ".zshrc"
 sudo ln -s ~/.zshrc /root/.zshrc
 sudo mkdir -p /usr/share/custom-zsh/zsh-sudo
 log "CLONE" "powerlevel10k"
 sudo git --quiet clone "https://github.com/romkatv/powerlevel10k" /usr/share/custom-zsh/powerlevel10k
 log "COPY" ".p10k.zsh"
-sudo cp ./zsh/p10k.zsh /usr/share/custom-zsh/.p10k.zsh
+sudo cp ./config/zsh/p10k.zsh /usr/share/custom-zsh/.p10k.zsh
 log "CLONE" "zsh-syntax-highlighting"
 sudo git --quiet clone "https://github.com/zsh-users/zsh-syntax-highlighting" /usr/share/custom-zsh/zsh-syntax-highlighting
 log "CLONE" "zsh-autosuggestions"
@@ -131,7 +131,7 @@ curl -sX GET "https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/plugins/s
 log "CLONE" "fzf"
 sudo git --quiet clone "https://github.com/junegunn/fzf" /usr/share/custom-zsh/fzf
 log "COPY" ".fzf.zsh"
-sudo cp ./zsh/fzf.zsh /usr/share/custom-zsh/.fzf.zsh
+sudo cp ./config/zsh/fzf.zsh /usr/share/custom-zsh/.fzf.zsh
 log "USERMOD" "/usr/bin/zsh -> root"
 sudo usermod --shell /usr/bin/zsh root
 log "USERMOD" "/usr/bin/zsh -> $USERNAME"
@@ -140,40 +140,40 @@ sudo usermod --shell /usr/bin/zsh "$USERNAME"
 # === Xorg === #
 banner "4" "Configuring Xorg"
 log "COPY" "xinitrc"
-sudo cp ./xorg/xinitrc /etc/X11/xinit/xinitrc
+sudo cp ./config/xorg/xinitrc /etc/X11/xinit/xinitrc
 log "COPY" ".xprofile"
-cp ./xorg/xprofile ~/.xprofile
+cp ./config/xorg/xprofile ~/.xprofile
 log "COPY" ".Xresources"
-cp ./xorg/Xresources ~/.Xresources
+cp ./config/xorg/Xresources ~/.Xresources
 mkdir ~/.config/gtk-3.0
 log "COPY" "settings.ini"
-cp ./xorg/settings.ini ~/.config/gtk-3.0/settings.ini
+cp ./config/xorg/settings.ini ~/.config/gtk-3.0/settings.ini
 log "COPY" "00-keyboard.conf"
-sudo cp ./xorg/00-keyboard.conf /etc/X11/xorg.conf.d/00-keyboard.conf
+sudo cp ./config/xorg/00-keyboard.conf /etc/X11/xorg.conf.d/00-keyboard.conf
 log "COPY" "10-monitor.conf"
-sudo cp ./xorg/10-monitor.conf /etc/X11/xorg.conf.d/10-monitor.conf
+sudo cp ./config/xorg/10-monitor.conf /etc/X11/xorg.conf.d/10-monitor.conf
 log "COPY" "20-mouse-acceleration.conf"
-sudo cp ./xorg/20-mouse-acceleration.conf /etc/X11/xorg.conf.d/20-mouse-acceleration.conf
+sudo cp ./config/xorg/20-mouse-acceleration.conf /etc/X11/xorg.conf.d/20-mouse-acceleration.conf
 
 # === Qtile === #
 banner "5" "Configuring Qtile"
 log "COPY [R]" "qtile"
-cp -r ./qtile ~/.config/qtile
+cp -r ./config/qtile ~/.config/qtile
 
 # === Kitty === #
 banner "6" "Configuring Kitty"
 log "COPY [R]" "kitty"
-cp -r ./kitty ~/.config/kitty
+cp -r ./config/kitty ~/.config/kitty
 
 # === Picom === #
 banner "7" "Configuring Picom"
 log "COPY [R]" "picom"
-cp -r ./picom ~/.config/picom
+cp -r ./config/picom ~/.config/picom
 
 # === Ranger === #
 banner "8" "Configuring Ranger"
 log "COPY [R]" "ranger"
-cp -r ./ranger ~/.config/ranger
+cp -r ./config/ranger ~/.config/ranger
 log "CLONE" "plugins"
 git --quiet clone "https://github.com/alexanderjeurissen/ranger_devicons" ~/.config/ranger/plugins
 log "LINK" "ranger"
@@ -182,29 +182,29 @@ sudo ln -s ~/.config/ranger /root/.config/ranger
 # === Rofi === #
 banner "9" "Configuring Rofi"
 log "COPY [R]" "rofi"
-cp -r ./rofi ~/.config/rofi
+cp -r ./config/rofi ~/.config/rofi
 log "MOVE" "onedark.rasi"
 sudo mv ~/.config/rofi/onedark.rasi /usr/share/rofi/themes
 
 # === Audio === #
 banner "10" "Configuring Audio"
 log "COPY [R]" "wireplumber"
-cp ./wireplumber/main.lua.d/* /usr/share/wireplumber/main.lua.d
+cp ./config/wireplumber/main.lua.d/* /usr/share/wireplumber/main.lua.d
 
 # === Chromium === #
 banner "11" "Configuring Chromium"
 log "COPY" "chromium-flags.conf"
-cp ./chromium/chromium-flags.conf ~/.config/chromium-flags.conf
+cp ./config/chromium/chromium-flags.conf ~/.config/chromium-flags.conf
 
 # === Wallpapers === #
 banner "12" "Configuring Wallpapers"
 log "COPY [R]" "wallpapers"
-sudo cp -r ./wallpapers /usr/share/wallpapers
+sudo cp -r ./config/wallpapers /usr/share/wallpapers
 
 # === Lockscreen === #
 banner "13" "Configuring Lockscreen"
 log "COPY [R]" "lockscreen"
-sudo cp -r ./lockscreen /usr/share/lockscreen
+sudo cp -r ./config/lockscreen /usr/share/lockscreen
 log "CHOWN [R]" "lockscreen"
 sudo chown -R "$USERNAME":"$USERNAME" /usr/share/lockscreen
 
