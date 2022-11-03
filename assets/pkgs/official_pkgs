@@ -59,6 +59,8 @@ shellcheck
 sl
 sox
 strace
+texlive-most
+texlive-lang
 tree
 upx
 vulkan-icd-loader
