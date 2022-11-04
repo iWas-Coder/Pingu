@@ -50,7 +50,7 @@ sudo cp ./config/grub/grub /etc/default/grub
 log "COPY [R]" "CyberRe"
 sudo cp -r ./config/grub/CyberRe /boot/grub/themes/CyberRe
 printf '%.s─' $(seq 1 "$(tput cols)")
-lsblk
+lsblk -p -o name,size,type,mountpoints | grep -P "disk|part|crypt"
 printf '%.s─' $(seq 1 "$(tput cols)")
 echo -ne "${C_YELLOW}Encrypted ROOT partition (full path): ${C_RESET}"
 read -r ENC_ROOT_PARTITION
