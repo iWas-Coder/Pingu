@@ -17,7 +17,7 @@ banner () {
 }
 
 log () {
-    echo -e "${C_PURPLE}$1\t${C_WHITE}$2"
+    echo -e "${C_PURPLE}$1\t${C_WHITE}$2" | expand -t 10
     sleep 1
 }
 
