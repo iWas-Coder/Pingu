@@ -78,6 +78,7 @@ RESULT_STRING="root=\/dev\/mapper\/cryptroot rd.luks.name=${ENC_ROOT_UUID}=crypt
 log "SUBST" "grub -> dm-crypt systemd"
 sudo sed "s/GRUB_CMDLINE_LINUX=\"\"/GRUB_CMDLINE_LINUX=\"${RESULT_STRING}\"/" -i /etc/default/grub
 sudo grub-mkconfig -o /boot/grub/grub.cfg
+sleep 5
 
 
 # === Official Packages === #
