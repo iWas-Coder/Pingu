@@ -42,7 +42,7 @@ sudo ls &>/dev/null
 
 banner "*" "Dotfiles Automated Configuration"
 
-echo -ne "${C_GREEN}"
+echo -ne "${C_WHITE}"
 echo ' _______   __                               '
 echo '|       \ |  \                              '
 echo '| $$$$$$$\ \$$ _______    ______   __    __ '
@@ -56,6 +56,7 @@ echo '                        |  \__| $$          '
 echo '                         \$$    $$          '
 echo '                          \$$$$$$           '
 echo -ne "${C_RESET}"
+sleep 2
 
 
 # === GRUB === #
