@@ -1,4 +1,0 @@
-binutils,2.39,https://ftp.gnu.org/gnu/binutils/binutils-@.tar.gz,https://ftp.gnu.org/gnu/binutils/binutils-@.tar.gz.sig
-gcc,12.2.0,https://ftp.gnu.org/gnu/gcc/gcc-@/gcc-@.tar.gz,https://ftp.gnu.org/gnu/gcc/gcc-@/gcc-@.tar.gz.sig
-linux,6.0.3,https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-@.tar.gz,https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-@.tar.sign
-glibc,2.36,https://ftp.gnu.org/gnu/glibc/glibc-@.tar.gz,https://ftp.gnu.org/gnu/glibc/glibc-@.tar.gz.sig
